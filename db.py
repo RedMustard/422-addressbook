@@ -19,14 +19,14 @@ def db_init(argv):
 	"""	
 
 	if db_exists(argv) == True:
-		cfg.DB = sql.connect(argv)
+		cfg.DB = sql.connect(argv + '.ab')
 		cfg.C = cfg.DB.cursor()
 		print('Database already exists')
 
 	else:
-		cfg.DB = sql.connect(argv)
+		cfg.DB = sql.connect(argv + '.ab')
 		cfg.C = cfg.DB.cursor()
-		create_table = '''CREATE TABLE Contacts(ID INTEGER PRIMARY KEY, First TEXT, 
+		create_table = '''CREATE TABLE Contacts(ID INTEGER PRIMARY KEY NOT NULL, First TEXT, 
 					Last TEXT, Street1 TEXT, Street2 TEXT, City TEXT, State TEXT,
 					Zip TEXT, Home TEXT, Mobile TEXT, Email TEXT, Birthday TEXT, 
 					Notes TEXT) '''	
@@ -42,18 +42,36 @@ def db_exists(argv):
 	argv -- Name of a database file
 	"""
 
-	if (path.isfile(argv)):
+	if (path.isfile(argv + '.ab')):
 		return True
 	else:
 		return False
 
 
-# def get_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, note):
-# 	"""Process user input field data into a list object.
+def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, note):
+	"""Creates an entry list object.
 
-# 	Keyword returns:
-# 	entry -- A list object
-# 	"""
+	Keyword returns:
+	entry -- A list object
+	"""
+
+	entry = []
+
+	entry.append(first)
+	entry.append(last) 
+	entry.append(st1)
+	entry.append(st2)
+	entry.append(city)
+	entry.append(st)
+	entry.append(zip)
+	entry.append(home)
+	entry.append(mob)
+	entry.append(email)
+	entry.append(bday)
+	entry.append(note)
+
+	# print(entry)
+	return entry
 
 
 def insert_entry(entry):
@@ -63,7 +81,7 @@ def insert_entry(entry):
 	entry -- A list object 
 	"""
 
-	cfg.C.execute('INSERT INTO Contacts VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+	cfg.C.execute('INSERT INTO Contacts VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?)', 
 		entry,)
 
 	cfg.DB.commit()
@@ -76,7 +94,7 @@ def delete_entry(id):
 	id -- Corresponding ID number for a database entry.
 	"""
 
-	cfg.C.execute("DELETE FROM Contacts WHERE ID LIKE '%'|| ? || '%'", id)
+	cfg.C.execute("DELETE FROM Contacts WHERE ID LIKE ?", id)
 
 	del_confirm = input("Are you sure you want to delete the contact? (1/0)")
 
@@ -95,12 +113,13 @@ def edit_entry(entry, id):
 	entry_update = '''UPDATE Contacts SET First = ?, Last = ?, Street1 = ?,
 			Street2 = ?, City = ?, State = ?, Zip = ?, Home = ?, Mobile = ?, 
 			Email = ?, Birthday = ?, Notes = ? WHERE ID = ? '''
-	cfg.C.execute(entry_update, [entry[1], entry[2], entry[3], entry[4], 
-		entry[5], entry[6], entry[7], entry[8], entry[9], entry[10], entry[11],
-		entry[12], id] )
+	cfg.C.execute(entry_update, [entry[0], entry[1], entry[2], entry[3], 
+		entry[4], entry[5], entry[6], entry[7], entry[8], entry[9], entry[10],
+		entry[11], id])
 
-# entry[2], entry[3], entry[4], 
-# 		entry[5],entry[6],entry[7],,entry[8],entry[9]
+	cfg.DB.commit()
+
+
 def query_entrylist(argv):
 	"""Prints the full list of entries in database."""
 
@@ -110,7 +129,7 @@ def query_entrylist(argv):
 		cfg.C.execute(last_name)
 
 	elif argv == 'zip':
-		zip_code = '''SELECT * FROM Contacts ORDER BY Zip'''
+		zip_code = '''SELECT * FROM Contacts ORDER BY Zip, Last'''
 		cfg.C.execute(zip_code)
 
 	for row in cfg.C:
@@ -126,19 +145,19 @@ def query_entrylist(argv):
 
 
 if __name__ == "__main__":
-	entry0 = [0, 'Travis', 'Barnes', '555-555-5555', '555-444-4444', 'ttb@uoregon.edu', 'street ad1',
+	entry0 = ['Travis', 'Barnes', '555-555-5555', '555-444-4444', 'ttb@uoregon.edu', 'street ad1',
 				'street ad2', 'Eugene', 'OR', '11111', '08/30/1991', 'Insert notes here']
 
-	entry1 = [1, 'George', 'Castanza', '555-333-3333', '', 'castanza@seinfeld.com', '5th street',
+	entry1 = ['George', 'Castanza', '555-333-3333', '', 'castanza@seinfeld.com', '5th street',
 				'', 'NYC', 'NY', '11111', '', '']
 
-	entry2 = [2, 'Giacomo', 'Ouillizzoni', '555-222-2222', '', 'gguillizzoni@mail.com', '123 Fake St.',
+	entry2 = ['Giacomo', 'Ouillizzoni', '555-222-2222', '', 'gguillizzoni@mail.com', '123 Fake St.',
 				'Apt 7', 'FakeTown', 'FakeState', '33333', '', 'Cool dude.']
 
-	entry3 = [3, 'Thomas', 'Mark', '555-777-7777', '', 'markt@mail.com', '',
+	entry3 = ['Thomas', 'Mark', '555-777-7777', '', 'markt@mail.com', '',
 				'', 'City', 'State', '33333', '', '']
 
-	entry3_edit = [3, 'Thomas', 'Mark', '555-777-7777', '555-000-0000', 'markt@mail.com', '',
+	entry3_edit = ['Thomas', 'Mark', '555-777-7777', '555-000-0000', 'markt@mail.com', '',
 				'', 'City', 'State', '33333', '10/13/97', '']
 					
 	filename = input("Enter the name of the address book file: ")
@@ -149,13 +168,14 @@ if __name__ == "__main__":
 	print("Printing contacts...")
 	query_entrylist('last')
 
-	print("\nInserting contacts...")
-	insert_entry(entry0)
-	insert_entry(entry1)
-	insert_entry(entry2)
-	insert_entry(entry3)
-	print("Printing contacts...")
-	query_entrylist('last')
+	if db_exists(filename) == False:
+		print("\nInserting contacts...")
+		insert_entry(entry0)
+		insert_entry(entry1)
+		insert_entry(entry2)
+		insert_entry(entry3)
+		print("Printing contacts...")
+		query_entrylist('last')
 
 	print("\nDeleting contact 0... ")
 	delete_entry('0')
@@ -172,5 +192,19 @@ if __name__ == "__main__":
 
 	print("\nEditing contact 3...")
 	edit_entry(entry3_edit, 3)
+	print("Printing contacts...")
+	query_entrylist('last')
+
+	print("\nCreating new entry list...")
+	entry_list = create_entry('charles', 'sanders', '1000 West St', 'Apt203', 'Townville', 'State', '131313', 
+		'777-777-7777', '754-333-3333', 'email@mail.com', '01/01/1900', '')
+	print(entry_list)
+	print("\nInserting entry... ")
+	insert_entry(entry_list)
+	print("Printing contacts...")
+	query_entrylist('last')
+
+	print("\nDeleting entry...")
+	delete_entry('7')
 	print("Printing contacts...")
 	query_entrylist('last')
