@@ -7,6 +7,7 @@ Author: Travis Barnes, 18 January 2016
 
 import AddressBook as ab
 import db
+import tkinter as Tk
 
 def get_contacts(sort):
 	"""
@@ -56,6 +57,9 @@ def new_book():
 
 
 if __name__ == "__main__":
-	new_book()
-	ab.root.mainloop()
+    new_book()
+    root = Tk.Tk()
+    m=ab.mainWindow(root)
+    root.mainloop()
+    ab.root.mainloop()
 	
