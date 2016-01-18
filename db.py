@@ -11,22 +11,22 @@ import os.path as path
 import config as cfg
 
 
-def db_init(argv):
+def db_init(db_name):
 	"""Create/Open and initialize a database.
 
 	Keyword arguments:
-	argv -- Name of the new database file
+	db_name -- Name of the new database file
 	"""	
 
-	if db_exists(argv) == True:
-		cfg.DB = sql.connect(argv + '.ab')
+	if db_exists(db_name) == True:
+		cfg.DB = sql.connect(db_name + '.ab')
 		cfg.C = cfg.DB.cursor()
 		print('Database already exists')
 
 	else:
-		cfg.DB = sql.connect(argv + '.ab')
+		cfg.DB = sql.connect(db_name + '.ab')
 		cfg.C = cfg.DB.cursor()
-		create_table = '''CREATE TABLE Contacts(ID INTEGER PRIMARY KEY NOT NULL, First TEXT, 
+		create_table = '''CREATE TABLE Contacts(First TEXT, 
 					Last TEXT, Street1 TEXT, Street2 TEXT, City TEXT, State TEXT,
 					Zip TEXT, Home TEXT, Mobile TEXT, Email TEXT, Birthday TEXT, 
 					Notes TEXT) '''	
@@ -35,20 +35,34 @@ def db_init(argv):
 		print('New table created')
 	
 
-def db_exists(argv):
+def db_exists(db_name):
 	"""Checks whether db exists.
 
 	Keyword arguments:
-	argv -- Name of a database file
+	db_name -- Name of a database file
 	"""
 
-	if (path.isfile(argv + '.ab')):
+	if (path.isfile(db_name + '.ab')):
 		return True
 	else:
 		return False
 
 
-def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, note):
+def get_id(entry):
+	"""Gets database ID number from an entry
+
+	Keyword arguments:
+	entry - A list object
+	"""
+	entry_id = "SELECT rowid, * FROM Contacts WHERE First = ? AND Last = ?"
+	cfg.C.execute(entry_id, [entry[0], entry[1]])
+
+	for row in cfg.C:
+		return row[0]
+
+
+def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, 
+	note):
 	"""Creates an entry list object.
 
 	Keyword returns:
@@ -70,7 +84,6 @@ def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, n
 	entry.append(bday)
 	entry.append(note)
 
-	# print(entry)
 	return entry
 
 
@@ -81,20 +94,20 @@ def insert_entry(entry):
 	entry -- A list object 
 	"""
 
-	cfg.C.execute('INSERT INTO Contacts VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?)', 
-		entry,)
+	cfg.C.execute('INSERT INTO Contacts VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+		entry)
 
 	cfg.DB.commit()
 
 
-def delete_entry(id):
+def delete_entry(entry):
 	"""Removes entry from database.
 
 	Keyword arguments:
-	id -- Corresponding ID number for a database entry.
+	entry -- A list object
 	"""
 
-	cfg.C.execute("DELETE FROM Contacts WHERE ID LIKE ?", id)
+	cfg.C.execute("DELETE FROM Contacts WHERE rowid = ?", '{}'.format(get_id(entry)))
 
 	del_confirm = input("Are you sure you want to delete the contact? (1/0)")
 
@@ -102,33 +115,38 @@ def delete_entry(id):
 		cfg.DB.commit()
 
 
-def edit_entry(entry, id):
+def edit_entry(entry):
 	"""Updates entry in database.
 
 	Keyword arguments:
-	entry -- An entry list object
+	entry -- A list object
 	id -- Corresponding ID number for an entry.
 	"""
 
 	entry_update = '''UPDATE Contacts SET First = ?, Last = ?, Street1 = ?,
 			Street2 = ?, City = ?, State = ?, Zip = ?, Home = ?, Mobile = ?, 
-			Email = ?, Birthday = ?, Notes = ? WHERE ID = ? '''
+			Email = ?, Birthday = ?, Notes = ? WHERE rowid = ? '''
+
 	cfg.C.execute(entry_update, [entry[0], entry[1], entry[2], entry[3], 
 		entry[4], entry[5], entry[6], entry[7], entry[8], entry[9], entry[10],
-		entry[11], id])
+		entry[11], '{}'.format(get_id(entry))])
 
 	cfg.DB.commit()
 
 
-def query_entrylist(argv):
-	"""Prints the full list of entries in database."""
+def query_entrylist(sort_type):
+	"""Prints the full list of entries in database.
+
+	Keyword arguments:
+	sort_type -- String containing sorting method
+	"""
 
 	# Choose the sorting method
-	if argv == 'last':
+	if sort_type == 'last':
 		last_name = '''SELECT * FROM Contacts ORDER BY Last'''
 		cfg.C.execute(last_name)
 
-	elif argv == 'zip':
+	elif sort_type == 'zip':
 		zip_code = '''SELECT * FROM Contacts ORDER BY Zip, Last'''
 		cfg.C.execute(zip_code)
 
@@ -138,10 +156,6 @@ def query_entrylist(argv):
 
 # def entry_search(entry):
 # 	"""Searches the database for an entry."""
-
-
-# def input_validation(entry):
-# 	"""Validates user input to make sure it is in proper format."""
 
 
 if __name__ == "__main__":
@@ -168,21 +182,21 @@ if __name__ == "__main__":
 	print("Printing contacts...")
 	query_entrylist('last')
 
-	if db_exists(filename) == False:
-		print("\nInserting contacts...")
-		insert_entry(entry0)
-		insert_entry(entry1)
-		insert_entry(entry2)
-		insert_entry(entry3)
-		print("Printing contacts...")
-		query_entrylist('last')
-
-	print("\nDeleting contact 0... ")
-	delete_entry('0')
+	# if db_exists(filename) == False:
+	print("\nInserting contacts...")
+	insert_entry(entry0)
+	insert_entry(entry1)
+	insert_entry(entry2)
+	insert_entry(entry3)
 	print("Printing contacts...")
 	query_entrylist('last')
 
-	print("\nInserting contacts... ")
+	print("\nDeleting contact Travis... ")
+	delete_entry(entry0)
+	print("Printing contacts...")
+	query_entrylist('last')
+
+	print("\nInserting contact Travis... ")
 	insert_entry(entry0)
 	print("Printing contacts...")
 	query_entrylist('last')
@@ -190,8 +204,8 @@ if __name__ == "__main__":
 	print("\nSorting contacts by zip code...")
 	query_entrylist('zip')
 
-	print("\nEditing contact 3...")
-	edit_entry(entry3_edit, 3)
+	print("\nEditing contact Thomas...")
+	edit_entry(entry3_edit)
 	print("Printing contacts...")
 	query_entrylist('last')
 
@@ -205,6 +219,6 @@ if __name__ == "__main__":
 	query_entrylist('last')
 
 	print("\nDeleting entry...")
-	delete_entry('7')
+	delete_entry(entry_list)
 	print("Printing contacts...")
 	query_entrylist('last')
