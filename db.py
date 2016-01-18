@@ -54,6 +54,7 @@ def get_id(entry):
 	Keyword arguments:
 	entry - A list object
 	"""
+
 	entry_id = "SELECT rowid, * FROM Contacts WHERE First = ? AND Last = ?"
 	cfg.C.execute(entry_id, [entry[0], entry[1]])
 
@@ -141,19 +142,16 @@ def query_entrylist(sort):
 	sort -- String containing sorting method
 	"""
 
-	# Choose the sorting method
 	if sort == 'last':
 		last_name = '''SELECT * FROM Contacts ORDER BY Last'''
 		cfg.C.execute(last_name)
 
 	elif sort == 'zip':
-		zip_code = '''SELECT * FROM Contacts ORDER BY Zip ASC'''
+		zip_code = '''SELECT * FROM Contacts ORDER BY Zip ASC, Last ASC'''
 		cfg.C.execute(zip_code)
 
-	# for row in cfg.C:
-		# return row
-
 	return cfg.C
+
 
 def search_entry(str):
 	"""Searches the database for an entry.
@@ -166,28 +164,25 @@ def search_entry(str):
 			Birthday || Notes) LIKE '%' || ? || '%' '''
 	cfg.C.execute(search, [str]) 
 
-	# for row in cfg.C:
-	# 	return row
-
 	return cfg.C
 
 
-
 if __name__ == "__main__":
-	entry0 = ['Travis', 'Barnes', '555-555-5555', '555-444-4444', 'ttb@uoregon.edu', 'street ad1',
-				'street ad2', 'Eugene', 'OR', '11111', '08/30/1991', 'Insert notes here']
+	entry0 = ['Travis', 'Barnes', 'street ad1', 'street ad2', 'Eugene', 'OR', '11111',
+				'555-555-5555', '555-444-4444', 'ttb@uoregon.edu', '08/30/1991', 
+				'Insert notes here']
 
-	entry1 = ['George', 'Castanza', '555-333-3333', '', 'castanza@seinfeld.com', '5th street',
-				'', 'NYC', 'NY', '11111', '', '']
+	entry1 = ['George', 'Castanza', '5th street','', 'NYC', 'NY', '11111',
+				'555-333-3333', '', 'castanza@seinfeld.com', '' , '']
 
-	entry2 = ['Giacomo', 'Ouillizzoni', '555-222-2222', '', 'gguillizzoni@mail.com', '123 Fake St.',
-				'Apt 7', 'FakeTown', 'FakeState', '33333', '', 'Cool dude.']
+	entry2 = ['Giacomo', 'Ouillizzoni', '123 Fake St.','Apt 7', 'FakeTown', 'FakeState', 
+				'33333','555-222-2222', '', 'gguillizzoni@mail.com',  '', 'Cool dude.']
 
-	entry3 = ['Thomas', 'Mark', '555-777-7777', '', 'markt@mail.com', '',
-				'', 'City', 'State', '33333', '', '']
+	entry3 = ['Thomas', 'Mark',  '', '', 'City', 'State', '33333','555-777-7777', 
+				'', 'markt@mail.com', '', '']
 
-	entry3_edit = ['Thomas', 'Mark', '555-777-7777', '555-000-0000', 'markt@mail.com', '',
-				'', 'City', 'State', '33333', '10/13/97', '']
+	entry3_edit = ['Thomas', 'Mark', '', '', 'City', 'State', '33333','555-777-7777', 
+				'555-000-0000', 'markt@mail.com',  '10/13/97', '']
 					
 	filename = input("Enter the name of the address book file: ")
 	print("Opening database...")
