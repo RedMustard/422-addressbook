@@ -6,18 +6,23 @@ AddressBook.py
 """
 import tkinter as Tk
 
-#def new_address_book() 
+def item_return(entry_item):
+	r = entry_item
+	book_list.insert(Tk.END, r)
+	return r
 
 root = Tk.Tk()
 root.title("Address Book")
 #root.resizeable(10,10)
 
-address_book_name = Tk.Entry(root)
-address_book_name.grid(row=2, column = 1, pady = 10)
-address_book_name.insert(0, 'Enter name')
+item = Tk.Entry(root)
+item.grid(row=2, column = 1, pady = 10)
+item.insert(0, 'Enter name')
+
+entry_item = item.get()
 
 #sumbit button to make a Address book names after the name entered
-submit = Tk.Button(root, text='Submit')#, command = new_address_book ) #NEED TO MAKE BUTTON FUNCTIONAL
+submit = Tk.Button(root, text='Submit', command = item_return ) #NEED TO MAKE BUTTON FUNCTIONAL
 submit.grid(row = 3, column = 1)
 
 #scroll bar for listbox of address books
