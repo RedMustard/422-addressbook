@@ -5,11 +5,13 @@ CIS422 Winter 2016
 AddressBook.py
 """
 import tkinter as Tk
+import main as m
 
 def item_return():
 	r = item.get()
-	#book_list.insert(Tk.END, r)
-	return r
+	m.add_contact(r)
+	book_list.insert(Tk.END, m.get_contacts('last'))
+	# return r
 
 root = Tk.Tk()
 root.title("Address Book")
@@ -30,7 +32,7 @@ scrollbar.grid(row = 4, column = 2)
 
 #list of all the address books
 book_list = Tk.Listbox(root, yscrollcommand = scrollbar.set)
-book_list.grid(row = 4, column = 1, padx = 10, pady = 10)
+book_list.grid(row = 4, column = 1, padx = 10, pady = 10, columnspan= 3)
 
 scrollbar.config(command = book_list.yview)
 
