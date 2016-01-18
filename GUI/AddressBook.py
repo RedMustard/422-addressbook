@@ -6,8 +6,8 @@ AddressBook.py
 """
 import tkinter as Tk
 
-def item_return(entry_item):
-	r = entry_item
+def item_return():
+	r = item.get()
 	book_list.insert(Tk.END, r)
 	return r
 
@@ -19,10 +19,9 @@ item = Tk.Entry(root)
 item.grid(row=2, column = 1, pady = 10)
 #item.insert(0, 'Enter name')
 
-entry_item = item.get()
 
 #sumbit button to make a Address book names after the name entered
-submit = Tk.Button(root, text='Submit', command = lambda: item_return(entry_item)) #NEED TO MAKE BUTTON FUNCTIONAL
+submit = Tk.Button(root, text='Submit', command = item_return) #NEED TO MAKE BUTTON FUNCTIONAL
 submit.grid(row = 3, column = 1)
 
 #scroll bar for listbox of address books
