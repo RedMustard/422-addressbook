@@ -8,7 +8,7 @@ import tkinter as Tk
 
 def item_return():
 	r = item.get()
-	book_list.insert(Tk.END, r)
+	#book_list.insert(Tk.END, r)
 	return r
 
 root = Tk.Tk()
@@ -17,7 +17,7 @@ root.title("Address Book")
 
 item = Tk.Entry(root)
 item.grid(row=2, column = 1, pady = 10)
-#item.insert(0, 'Enter name')
+item.insert(0, 'Enter name')
 
 
 #sumbit button to make a Address book names after the name entered
