@@ -2,7 +2,7 @@
 
 Author: Travis Barnes, January 16 2016
 
-This program creates, modifies (insert, delete, update),  and queries a
+This program creates, modifies (insert, delete, update), and queries a
 SQLite database filled with address book entries.
 """
 
@@ -134,28 +134,43 @@ def edit_entry(entry):
 	cfg.DB.commit()
 
 
-def query_entrylist(sort_type):
+def query_entrylist(sort):
 	"""Prints the full list of entries in database.
 
 	Keyword arguments:
-	sort_type -- String containing sorting method
+	sort -- String containing sorting method
 	"""
 
 	# Choose the sorting method
-	if sort_type == 'last':
+	if sort == 'last':
 		last_name = '''SELECT * FROM Contacts ORDER BY Last'''
 		cfg.C.execute(last_name)
 
-	elif sort_type == 'zip':
-		zip_code = '''SELECT * FROM Contacts ORDER BY Zip, Last'''
+	elif sort == 'zip':
+		zip_code = '''SELECT * FROM Contacts ORDER BY Zip ASC'''
 		cfg.C.execute(zip_code)
 
-	for row in cfg.C:
-		print(row)
+	# for row in cfg.C:
+		# return row
 
+	return cfg.C
 
-# def entry_search(entry):
-# 	"""Searches the database for an entry."""
+def search_entry(str):
+	"""Searches the database for an entry.
+
+	Keyword arguments:
+	str -- A string containing search term
+	"""
+	search = '''SELECT * FROM Contacts WHERE (First || Last || Street1 || 
+			Street2 || City || State || Zip || Home || Mobile || Email || 
+			Birthday || Notes) LIKE '%' || ? || '%' '''
+	cfg.C.execute(search, [str]) 
+
+	# for row in cfg.C:
+	# 	return row
+
+	return cfg.C
+
 
 
 if __name__ == "__main__":
@@ -180,7 +195,8 @@ if __name__ == "__main__":
 	print("Database opened\n")
 
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
 
 	# if db_exists(filename) == False:
 	print("\nInserting contacts...")
@@ -189,25 +205,30 @@ if __name__ == "__main__":
 	insert_entry(entry2)
 	insert_entry(entry3)
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
 
 	print("\nDeleting contact Travis... ")
 	delete_entry(entry0)
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
 
 	print("\nInserting contact Travis... ")
 	insert_entry(entry0)
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
 
 	print("\nSorting contacts by zip code...")
-	query_entrylist('zip')
+	for row in query_entrylist('zip'):
+		print(row)
 
 	print("\nEditing contact Thomas...")
 	edit_entry(entry3_edit)
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
 
 	print("\nCreating new entry list...")
 	entry_list = create_entry('charles', 'sanders', '1000 West St', 'Apt203', 'Townville', 'State', '131313', 
@@ -216,9 +237,29 @@ if __name__ == "__main__":
 	print("\nInserting entry... ")
 	insert_entry(entry_list)
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
 
 	print("\nDeleting entry...")
 	delete_entry(entry_list)
 	print("Printing contacts...")
-	query_entrylist('last')
+	for row in query_entrylist('last'):
+		print(row)
+
+	print("\nSearching for zip code 111111...")
+	for row in search_entry('11111'):
+		print(row)
+
+	print("\nSearching for partial email @mail.com...")
+	for row in search_entry('@mail.com'):
+		print(row)
+
+	print("\nSearching for name George and george...")
+	for row in search_entry('George'):
+		print(row)
+	for row in search_entry('george'):
+		print(row)
+
+	print("\nSearching for letter f...")
+	for row in search_entry('f'):
+		print(row)
