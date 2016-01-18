@@ -21,7 +21,7 @@ def db_init(argv):
 	if db_exists(argv) == True:
 		cfg.DB = sql.connect(argv)
 		cfg.C = cfg.DB.cursor()
-		print('no table creation')
+		print('DB exists')
 
 	else:
 		cfg.DB = sql.connect(argv)
@@ -32,7 +32,7 @@ def db_init(argv):
 					Zip TEXT, Birthday TEXT, Notes TEXT) '''	
 		cfg.C.execute(create_table)
 		cfg.DB.commit()
-		print('table creation')
+		print('Table created')
 	
 
 def db_exists(argv):
@@ -43,10 +43,10 @@ def db_exists(argv):
 	"""
 
 	if (path.isfile(argv)):
-		return True
+		return
 	else:
 		return False
-		
+
 
 # def get_entry():
 # 	"""Turn user input into a list object.
@@ -56,19 +56,20 @@ def db_exists(argv):
 # 	"""
 
 
-def insert_contact(entry):
+def insert_entry(entry):
 	"""Inserts a new entry into database.
 
 	Keyword arguments:
 	entry -- A list object 
 	"""
 
-	cfg.C.execute('INSERT INTO Contacts VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', entry,)
+	cfg.C.execute('INSERT INTO Contacts VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+		entry,)
 
 	cfg.DB.commit()
 
 
-def delete_contact(id):
+def delete_entry(id):
 	"""Removes entry from database.
 
 	Keyword arguments:
@@ -92,18 +93,21 @@ def delete_contact(id):
 # 	"""
 
 
-def query_namelist():
+def query_entrylist(argv):
 	"""Prints the full list of entries in database."""
 
-	query = "SELECT * FROM Contacts"
-	cfg.C.execute(query)
+	# Choose the sorting option
+	if argv == 'last':
+		last_name = '''SELECT * FROM Contacts ORDER BY Last'''
+		cfg.C.execute(last_name)
+
+	elif argv == 'zip':
+		zip_code = '''SELECT * FROM Contacts ORDER BY Zip'''
+		cfg.C.execute(zip_code)
 
 	for row in cfg.C:
 		print(row)
 
-
-# def sort_namelist():
-# 	"""Sorts the namelist."""
 
 
 # def entry_search(entry):
@@ -115,27 +119,43 @@ def query_namelist():
 
 
 if __name__ == "__main__":
-	entry = ['0', 'Travis', 'Barnes', '555-555-5555', '555-444-4444', 'ttb@uoregon.edu', 'street ad1',
-				'street ad2', 'Eugene', 'OR', '52642', '08/30/1991', 'Insert notes here']
+	entry0 = ['0', 'Travis', 'Barnes', '555-555-5555', '555-444-4444', 'ttb@uoregon.edu', 'street ad1',
+				'street ad2', 'Eugene', 'OR', '11111', '08/30/1991', 'Insert notes here']
 
-	entry2 = ['1', 'George', 'Castanza', '555-333-3333', '', 'castanza@seinfeld.com', '5th street',
+	entry1 = ['1', 'George', 'Castanza', '555-333-3333', '', 'castanza@seinfeld.com', '5th street',
 				'', 'NYC', 'NY', '11111', '', '']
 
-	filename = input("Enter the name of the address book file: \n")
-	print("Creating database... \n")
+	entry2 = ['2', 'Giacomo', 'Ouillizzoni', '555-222-2222', '', 'gguillizzoni@mail.com', '123 Fake St.',
+				'Apt 7', 'FakeTown', 'FakeState', '33333', '', 'Cool dude.']
+
+	entry3 = ['3', 'Thomas', 'Mark', '555-777-7777', '', 'markt@mail.com', '',
+				'', 'City', 'State', '33333', '', '']
+
+	filename = input("Enter the name of the address book file: ")
+	print("Creating database...")
 	db_init(filename)
 	print("Database opened.\n")
 
-	print("Printing contacts...\n")
-	query_namelist()
+	print("Printing contacts...")
+	query_entrylist('last')
+
+	print("Inserting contacts...")
+	insert_entry(entry0)
+	insert_entry(entry1)
+	insert_entry(entry2)
+	insert_entry(entry3)
+	print("Printing contacts...")
+	query_entrylist('last')
+
+	print("\nDeleting contact 0... ")
+	delete_entry('0')
+	print("Printing contacts...")
+	query_entrylist('last')
 
 	print("Inserting contacts... \n")
-	insert_contact(entry)
-	insert_contact(entry2)
+	insert_entry(entry0)
 	print("Printing contacts...\n")
-	query_namelist()
+	query_entrylist('last')
 
-	print("Deleting contact 0... \n")
-	delete_contact('0')
-	print("Printing contacts...\n")
-	query_namelist()
+	print("Sorting contacts by zip code..\n")
+	query_entrylist('zip')
