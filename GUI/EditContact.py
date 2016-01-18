@@ -4,7 +4,7 @@ CIS422 Winter 2016
 
 window for editting a contact
 """
-import Tkinter as Tk
+import tkinter as Tk
 
 #def cancel_command()
 

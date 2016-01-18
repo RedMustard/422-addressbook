@@ -12,7 +12,7 @@ main address book window.
 	-message widget to view contact info. (Might need to change)
 
 """
-import Tkinter as Tk
+import tkinter as Tk
 
 #commented out the commands and methods for the buttons to be able to run the file with broken buttons
 

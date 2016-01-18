@@ -4,7 +4,7 @@ CIS422 Winter 2016
 
 AddressBook.py
 """
-import Tkinter as Tk
+import tkinter as Tk
 
 #def new_address_book() 
 

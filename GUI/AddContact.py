@@ -4,7 +4,7 @@ CIS422 Winter 2016
 
 window for adding a new contact
 """
-import Tkinter as Tk
+import tkinter as Tk
 
 root = Tk.Tk()
 root.title('Add Contact')
