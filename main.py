@@ -9,9 +9,12 @@ import AddressBook as ab
 import db
 
 def get_contacts(sort):
-	"""Grabs field data and creates an entry object"""
+	"""
+	"""
+	contacts = []
 	for row in (db.query_entrylist(sort)):
-		return row
+		contacts.append(row)
+	return contacts
 	# return db.query_entrylist(sort)
 	
 
