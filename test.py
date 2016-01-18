@@ -60,7 +60,9 @@ def main():
         'testing deletion'
         print('\n### testing deletion ###')
         try:
-                delete_entry(entry0)
+
+                delete_entry(entry0))
+                
                 if(not get_id(entry0)):
                         print('*** delete succesful ***')
                 else:
@@ -103,8 +105,7 @@ def main():
         
         
         os.system('rm Test.ab')
-        os.system('rm __pycache__/config.cpython-34.pyc')
-        os.system('rm __pycache__/db.cpython-34.pyc')
+        
 
 
 if __name__ == "__main__":
