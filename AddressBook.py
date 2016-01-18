@@ -70,41 +70,61 @@ class AddContactWindow(object):
         self.address1 = Tk.Entry(top)
         self.address1.grid(row = 2, column = 1)
 
-        self.adress2_label = Tk.Label(top, text = 'Address 2:')
-        self.adress2_label.grid(row = 3)
+        self.address2_label = Tk.Label(top, text = 'Address 2:')
+        self.address2_label.grid(row = 3)
 
         #input for contacts address2
         self.address2 = Tk.Entry(top)
         self.address2.grid(row = 3, column = 1)
 
+        self.city_label = Tk.Label(top, text = 'City:')
+        self.city_label.grid(row = 4)
+
+        #input for contacts city
+        self.city = Tk.Entry(top)
+        self.city.grid(row = 4, column = 1)
+
+        self.state_label = Tk.Label(top, text = 'State:')
+        self.state_label.grid(row = 5)
+
+        #input for contacts state
+        self.state = Tk.Entry(top)
+        self.state.grid(row = 5, column = 1 )
+
+        self.zip_label = Tk.Label(top, text= 'Zip:')
+        self.zip_label.grid(row = 6)
+
+        #input for the contacts zip
+        self.zip = Tk.Entry(top)
+        self.zip.grid(row = 6, column = 1)
+
         self.email_label = Tk.Label(top, text = 'e-Mail:')
-        self.email_label.grid(row = 4)
+        self.email_label.grid(row = 7)
 
         #input for contacts email
         self.email = Tk.Entry(top)
-        self.email.grid(row = 4, column = 1)
+        self.email.grid(row = 7, column = 1)
 
         self.birthday_label = Tk.Label(top, text = 'Birthday:')
-        self.birthday_label.grid(row = 5)
+        self.birthday_label.grid(row = 8)
 
         #input for contacts birthday
         self.birthday = Tk.Entry(top)
-        self.birthday.grid(row = 5, column = 1)
+        self.birthday.grid(row = 8, column = 1)
 
         self.notes_label = Tk.Label(top, text = "Notes")
-        self.notes_label.grid(row = 6)
+        self.notes_label.grid(row = 9)
 
         #input for notes on contact
         self.notes = Tk.Entry(top)
-        self.notes.grid(row = 6, column = 1)
-
-        self.cancel_button = Tk.Button(top, text = 'Cancel')#NEED TO MAKE BUTTON FUNCTIONAL
-        self.cancel_button.grid(row = 8, column = 2)
+        self.notes.grid(row = 9, column = 1)
 
         self.add_button = Tk.Button(top, text= 'Add')#NEED TO MAKE BUTTON FUNCTIONAL
-        self.add_button.grid(row = 7, column = 2)
+        self.add_button.grid(row = 10, column = 2)
 
 
+        self.cancel_button = Tk.Button(top, text = 'Cancel')#NEED TO MAKE BUTTON FUNCTIONAL
+        self.cancel_button.grid(row = 11, column = 2)
 
 if __name__ == "__main__":
     master = Tk.Tk()
