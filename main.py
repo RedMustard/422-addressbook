@@ -2,7 +2,6 @@
 
 Author: Travis Barnes, 18 January 2016
 
-
 """
 
 import AddressBook as ab
@@ -39,7 +38,7 @@ def create_contact(contact):
 def add_contact(contact):
 	"""Adds a contact to the database"""
 	# print(create_contact(contact))
-	db.insert_entry(create_contact(contact))
+	db.insert_entry(contact)
 
 
 def remove_contact():
@@ -55,11 +54,14 @@ def new_book():
 	book_name = input("Enter the name of your new address book: ")
 	return (db.db_init(book_name))
 
+def open_book():
+	"""Opens an exisitng address book"""
+
 
 if __name__ == "__main__":
     new_book()
     root = Tk.Tk()
     m=ab.mainWindow(root)
     root.mainloop()
-    ab.root.mainloop()
+    # ab.root.mainloop()
 	
