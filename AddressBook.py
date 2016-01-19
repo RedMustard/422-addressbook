@@ -13,6 +13,7 @@ import main as m
 
 class mainWindow(object):
 
+
 	def field_return(self):
 		r = self.item.get()
 		m.add_contact(r)
@@ -155,13 +156,14 @@ class AddContactWindow(object):
 		email = self.email.get()
 		bday = self.birthday.get()
 		notes = self.notes.get()
-		field_vars = [first, last, st1, st2, city, state, zip, home, mobile, email, bday]
+
+		field_vars = [first, last, st1, st2, city, state, zip, home, mobile, email, bday, notes]
 
 		for i in range(12):
 			field_list[i] = field_vars[i]
 
-		for i in field_list:
-			print(i)
+		# for i in field_list:
+		# 	print(i)
 
 		m.add_contact(field_list)
 		
@@ -170,7 +172,7 @@ class AddContactWindow(object):
 
 
 		# for contact in m.get_contacts('last'):
-			# self.book_list.insert(Tk.END, contact)
+		# 	mainWindow.__init__.book_list.insert(Tk.END, contact)
 
 
 
