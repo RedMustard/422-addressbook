@@ -57,7 +57,7 @@ class mainWindow(object):
 		self.scrollbar = Tk.Scrollbar(master)
 		self.scrollbar.grid(row = 2, column = 2)
 		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set)
-		self.book_list.grid(row = 2, column = 1, padx = 10, pady = 10)
+		self.book_list.grid(row = 2, column = 1, padx = 10, pady = 10, rowspan = 7)
 		self.scrollbar.config(command = self.book_list.yview)
 
 		#add contact button
