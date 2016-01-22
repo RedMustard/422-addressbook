@@ -143,7 +143,7 @@ def query_entrylist(sort):
 	"""
 
 	if sort == 'last':
-		last_name = '''SELECT * FROM Contacts ORDER BY Last'''
+		last_name = '''SELECT * FROM Contacts ORDER BY Last ASC, First ASC'''
 		cfg.C.execute(last_name)
 
 	elif sort == 'zip':
@@ -167,94 +167,94 @@ def search_entry(str):
 	return cfg.C
 
 
-if __name__ == "__main__":
-	entry0 = ['Travis', 'Barnes', 'street ad1', 'street ad2', 'Eugene', 'OR', '11111',
-				'555-555-5555', '555-444-4444', 'ttb@uoregon.edu', '08/30/1991', 
-				'Insert notes here']
+# if __name__ == "__main__":
+	# entry0 = ['Travis', 'Barnes', 'street ad1', 'street ad2', 'Eugene', 'OR', '11111',
+	# 			'555-555-5555', '555-444-4444', 'ttb@uoregon.edu', '08/30/1991', 
+	# 			'Insert notes here']
 
-	entry1 = ['George', 'Castanza', '5th street','', 'NYC', 'NY', '11111',
-				'555-333-3333', '', 'castanza@seinfeld.com', '' , '']
+	# entry1 = ['George', 'Castanza', '5th street','', 'NYC', 'NY', '11111',
+	# 			'555-333-3333', '', 'castanza@seinfeld.com', '' , '']
 
-	entry2 = ['Giacomo', 'Ouillizzoni', '123 Fake St.','Apt 7', 'FakeTown', 'FakeState', 
-				'33333','555-222-2222', '', 'gguillizzoni@mail.com',  '', 'Cool dude.']
+	# entry2 = ['Giacomo', 'Ouillizzoni', '123 Fake St.','Apt 7', 'FakeTown', 'FakeState', 
+	# 			'33333','555-222-2222', '', 'gguillizzoni@mail.com',  '', 'Cool dude.']
 
-	entry3 = ['Thomas', 'Mark',  '', '', 'City', 'State', '33333','555-777-7777', 
-				'', 'markt@mail.com', '', '']
+	# entry3 = ['Thomas', 'Mark',  '', '', 'City', 'State', '33333','555-777-7777', 
+	# 			'', 'markt@mail.com', '', '']
 
-	entry3_edit = ['Thomas', 'Mark', '', '', 'City', 'State', '33333','555-777-7777', 
-				'555-000-0000', 'markt@mail.com',  '10/13/97', '']
+	# entry3_edit = ['Thomas', 'Mark', '', '', 'City', 'State', '33333','555-777-7777', 
+	# 			'555-000-0000', 'markt@mail.com',  '10/13/97', '']
 					
-	filename = input("Enter the name of the address book file: ")
-	print("Opening database...")
-	db_init(filename)
-	print("Database opened\n")
+	# filename = input("Enter the name of the address book file: ")
+	# print("Opening database...")
+	# db_init(filename)
+	# print("Database opened\n")
 
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	# if db_exists(filename) == False:
-	print("\nInserting contacts...")
-	insert_entry(entry0)
-	insert_entry(entry1)
-	insert_entry(entry2)
-	insert_entry(entry3)
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# # if db_exists(filename) == False:
+	# print("\nInserting contacts...")
+	# insert_entry(entry0)
+	# insert_entry(entry1)
+	# insert_entry(entry2)
+	# insert_entry(entry3)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	print("\nDeleting contact Travis... ")
-	delete_entry(entry0)
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# print("\nDeleting contact Travis... ")
+	# delete_entry(entry0)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	print("\nInserting contact Travis... ")
-	insert_entry(entry0)
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# print("\nInserting contact Travis... ")
+	# insert_entry(entry0)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	print("\nSorting contacts by zip code...")
-	for row in query_entrylist('zip'):
-		print(row)
+	# print("\nSorting contacts by zip code...")
+	# for row in query_entrylist('zip'):
+	# 	print(row)
 
-	print("\nEditing contact Thomas...")
-	edit_entry(entry3_edit)
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# print("\nEditing contact Thomas...")
+	# edit_entry(entry3_edit)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	print("\nCreating new entry list...")
-	entry_list = create_entry('charles', 'sanders', '1000 West St', 'Apt203', 'Townville', 'State', '131313', 
-		'777-777-7777', '754-333-3333', 'email@mail.com', '01/01/1900', '')
-	print(entry_list)
-	print("\nInserting entry... ")
-	insert_entry(entry_list)
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# print("\nCreating new entry list...")
+	# entry_list = create_entry('charles', 'sanders', '1000 West St', 'Apt203', 'Townville', 'State', '131313', 
+	# 	'777-777-7777', '754-333-3333', 'email@mail.com', '01/01/1900', '')
+	# print(entry_list)
+	# print("\nInserting entry... ")
+	# insert_entry(entry_list)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	print("\nDeleting entry...")
-	delete_entry(entry_list)
-	print("Printing contacts...")
-	for row in query_entrylist('last'):
-		print(row)
+	# print("\nDeleting entry...")
+	# delete_entry(entry_list)
+	# print("Printing contacts...")
+	# for row in query_entrylist('last'):
+	# 	print(row)
 
-	print("\nSearching for zip code 111111...")
-	for row in search_entry('11111'):
-		print(row)
+	# print("\nSearching for zip code 111111...")
+	# for row in search_entry('11111'):
+	# 	print(row)
 
-	print("\nSearching for partial email @mail.com...")
-	for row in search_entry('@mail.com'):
-		print(row)
+	# print("\nSearching for partial email @mail.com...")
+	# for row in search_entry('@mail.com'):
+	# 	print(row)
 
-	print("\nSearching for name George and george...")
-	for row in search_entry('George'):
-		print(row)
-	for row in search_entry('george'):
-		print(row)
+	# print("\nSearching for name George and george...")
+	# for row in search_entry('George'):
+	# 	print(row)
+	# for row in search_entry('george'):
+	# 	print(row)
 
-	print("\nSearching for letter f...")
-	for row in search_entry('f'):
-		print(row)
+	# print("\nSearching for letter f...")
+	# for row in search_entry('f'):
+	# 	print(row)

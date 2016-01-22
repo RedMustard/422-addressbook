@@ -5,6 +5,9 @@ class New_AddBookWindow(object):
 	#function for when Ok button is pressed
 	#def Ok():
 
+	def close_window(self):
+		self.top.destroy()
+
 	def __init__(self, master):
 		top=self.top=Tk.Toplevel(master)
 		self.master = master

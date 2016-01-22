@@ -22,20 +22,22 @@ import acw # Add Contact Window
 
 class mainWindow(object):
 
-	def contact_list(self):
-		"""
+	def close_window(self):
+		self.top.destroy()
 
-		"""
+	def contact_list(self):
+		"""Retrieves list of contacts"""
 		self.book_list.delete(0, Tk.END)
 		for contact in ab.get_contacts_list('last'):
-			self.book_list.insert(Tk.END, contact)
+			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 
 	def field_return(self):
+		i = 0
 		r = self.item.get()
 		ab.add_contact(r)
 		self.book_list.delete(0, Tk.END)
 		for contact in ab.get_contacts_list('last'):
-			self.book_list.insert(Tk.END, contact)
+			self.book_list.insert(Tk.END, contact[0]+contact[1])
 
 	def popupNew_Addbook(self):
 		self.n = new.New_AddBookWindow(self.master)
@@ -56,13 +58,13 @@ class mainWindow(object):
 		master.title('Address Book')
 
 		#entry field
-		self.item = Tk.Entry(master)
-		self.item.grid(row=0, column = 1, pady = 10)
-		self.item.insert(0, 'Enter name')
+		# self.item = Tk.Entry(master)
+		# self.item.grid(row=0, column = 1, pady = 10)
+		# self.item.insert(0, 'Enter name')
 
 		#submit button
-		self.submit = Tk.Button(master, text='Submit', command = self.field_return)
-		self.submit.grid(row = 1, column = 1)
+		# self.submit = Tk.Button(master, text='Submit', command = self.field_return)
+		# self.submit.grid(row = 1, column = 1)
 
 		#new address book button
 		self.new_button = Tk.Button(master, text='New', command = self.popupNew_Addbook)

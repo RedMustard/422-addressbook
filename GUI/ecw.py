@@ -29,6 +29,13 @@ class EditContactWindow(object):
 		ab.add_contact(field_list)
 	"""
 
+	# def fill_fields():
+		# """Queries the database and fills in text fields with contact data"""
+		# ab.get
+
+	def close_window(self):
+		self.top.destroy()
+		
 	def __init__(self, master):
 		top=self.top=Tk.Toplevel(master)
 		self.master = master

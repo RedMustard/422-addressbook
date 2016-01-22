@@ -1,6 +1,7 @@
 
 import tkinter as Tk
-import AddresBook as ab
+import AddressBook as ab
+import gui
 ## TODO:
 ##	Close window after 'Add is pressed'
 ##	Refresh contact list
@@ -11,18 +12,11 @@ class AddContactWindow(object):
 	def close_window(self):
 		self.top.destroy()
 
-	# def combine_funcs(*funcs): ## When two functions need called from one button, use this
-	# 	def combined_func(*args, **kwargs):
-	# 		for f in funcs:
-	# 			f(*args, **kwargs)
-	# 	return combined_func	
 
 	def field_return(self):
 		"""Grabs form data and creates"""
 
 		field_list = ['','','','','','','','','','','','']
-
-
 		
 		# field_names = ['first_name', 'last_name', 'address1', 'address2', 
 		# 		'city', 'state', 'zip', 'home', 'mobile', 'email', 'birthday']
@@ -31,7 +25,6 @@ class AddContactWindow(object):
 		# for field in field_vars:
 		# 	field = self.{}.format(field_names[i]).get()
 		# 	i += 1
-
 
 		first = self.first_name.get()
 		last = self.last_name.get()
@@ -51,20 +44,9 @@ class AddContactWindow(object):
 		for i in range(12):
 			field_list[i] = field_vars[i]
 
-		# for i in field_list:
-		# 	print(i)
-
 		ab.add_contact(field_list)
 		# mainWindow.contact_list();
 		self.close_window()
-		
-
-		# self.book_list.delete(0, Tk.END)
-
-
-		# for contact in m.get_contacts_list('last'):
-		# 	mainWindow.__init__.book_list.insert(Tk.END, contact)
-
 
 
 	def __init__(self,master):
@@ -129,7 +111,7 @@ class AddContactWindow(object):
 		self.home.grid(row = 7, column = 1)
 
 		# Input for contact mobile phone
-		self.mobile_label = Tk.Label(top, text = 'Home Phone:')
+		self.mobile_label = Tk.Label(top, text = 'Mobile Phone:')
 		self.mobile_label.grid(row = 8)
 
 		self.mobile = Tk.Entry(top)
