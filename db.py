@@ -62,30 +62,30 @@ def get_id(entry):
 		return row[0]
 
 
-def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, 
-	note):
-	"""Creates an entry list object.
+# def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, 
+# 	note):
+# 	"""Creates an entry list object.
 
-	Keyword returns:
-	entry -- A list object
-	"""
+# 	Keyword returns:
+# 	entry -- A list object
+# 	"""
 
-	entry = []
+# 	entry = []
 
-	entry.append(first)
-	entry.append(last) 
-	entry.append(st1)
-	entry.append(st2)
-	entry.append(city)
-	entry.append(st)
-	entry.append(zip)
-	entry.append(home)
-	entry.append(mob)
-	entry.append(email)
-	entry.append(bday)
-	entry.append(note)
+# 	entry.append(first)
+# 	entry.append(last) 
+# 	entry.append(st1)
+# 	entry.append(st2)
+# 	entry.append(city)
+# 	entry.append(st)
+# 	entry.append(zip)
+# 	entry.append(home)
+# 	entry.append(mob)
+# 	entry.append(email)
+# 	entry.append(bday)
+# 	entry.append(note)
 
-	return entry
+# 	return entry
 
 
 def insert_entry(entry):
