@@ -5,6 +5,8 @@ import db
 
 class ConfirmationWindow(object):
 	def yes(self):
+		name = self.name
+		gui.mainWindow(self.master).delete_contact(name)
 		db.save_changes()
 		self.top.destroy()
 
@@ -13,9 +15,10 @@ class ConfirmationWindow(object):
 		self.top.destroy()
 
 	
-	def __init__(self,master):
+	def __init__(self,master,name):
 		top=self.top=Tk.Toplevel(master)
 		self.master = master
+		self.name = name
 		top.title('Confirm')
 
 		self.label = Tk.Label(top, text = 'Are you sure you want to do this?')
