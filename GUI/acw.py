@@ -9,6 +9,15 @@ import gui
 ##############
 class AddContactWindow(object):
 
+
+	# def contact_list(self):
+	# 	"""Retrieves list of contacts"""
+	# 	gui.master.book_list.delete(0, Tk.END)
+	# 	for contact in ab.get_contacts_list('last'):
+	# 		# mainWindow.contact_list();
+	# 		gui.master.book_list.insert(Tk.END, contact[0] + " " + contact[1])
+
+
 	def close_window(self):
 		self.top.destroy()
 
@@ -45,8 +54,10 @@ class AddContactWindow(object):
 			field_list[i] = field_vars[i]
 
 		ab.add_contact(field_list)
-		# mainWindow.contact_list();
+		gui.mainWindow(self.master).contact_list()
+		# self.contact_list()
 		self.close_window()
+
 
 
 	def __init__(self,master):
