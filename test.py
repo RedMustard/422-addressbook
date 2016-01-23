@@ -61,7 +61,7 @@ def main():
         print('\n### testing deletion ###')
         try:
 
-                delete_entry(entry0))
+                delete_entry(entry0)
                 
                 if(not get_id(entry0)):
                         print('*** delete succesful ***')
