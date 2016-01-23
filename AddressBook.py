@@ -44,8 +44,24 @@ def add_contact(contact):
 	db.insert_entry(contact)
 
 
-def remove_contact():
+def remove_contact(contact):
 	"""Removes a contact"""
+	entry = []
+	for name in contact.split():
+		# print(db.search_entry(name))
+		entry.append(name)
+
+		# for row in db.search_entry(name):
+			
+			# print(row)
+	print(db.get_id(entry))
+	print(entry)
+	db.delete_entry(db.get_id(entry))
+	# print(contact.strip())
+	# print(db.search_entry(contact))
+	for result in db.search_entry(contact):
+		print(result)
+	# print(contact)
 
 
 def edit_contact():

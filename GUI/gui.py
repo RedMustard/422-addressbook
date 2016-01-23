@@ -13,6 +13,7 @@ import AddressBook as ab
 import new # New address book window
 import ecw # Edit Contact Window
 import acw # Add Contact Window
+import cw  # Confirmation Window
 
 
 
@@ -31,6 +32,12 @@ class mainWindow(object):
 		for contact in ab.get_contacts_list('last'):
 			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 			
+	def delete_contact(self):
+		"""Deletes selected contact"""
+		self.contact_selection = str(self.book_list.get(self.book_list.curselection()))
+		ab.remove_contact(self.contact_selection)
+		self.contact_list()
+		self.popup_confirmation()
 
 	def field_return(self):
 		i = 0
@@ -52,6 +59,10 @@ class mainWindow(object):
 	def popupEdit(self):
 		self.k=ecw.EditContactWindow(self.master)
 		self.master.wait_window(self.k.top)
+
+	def popup_confirmation(self):
+		self.c=cw.ConfirmationWindow(self.master)
+		self.master.wait_window(self.c.top)
 
 
 	def __init__(self,master):
@@ -78,6 +89,7 @@ class mainWindow(object):
 		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set)
 		self.book_list.grid(row = 2, column = 1, padx = 10, pady = 10, rowspan = 7)
 		self.scrollbar.config(command = self.book_list.yview)
+		
 
 		# Initialize list of contacts
 		self.contact_list()
@@ -87,7 +99,7 @@ class mainWindow(object):
 		self.add_button.grid(row= 10, column = 0)
 
 		#delete contact button
-		self.delete_button = Tk.Button(master, text = 'Delete')#NEED TO ADD COMMAND
+		self.delete_button = Tk.Button(master, text = 'Delete', command = self.delete_contact)#NEED TO ADD COMMAND
 		self.delete_button.grid(row = 10, column = 1, sticky = Tk.W )
 
 		#edit contact button
@@ -172,4 +184,5 @@ if __name__ == "__main__":
 	w=AddContactWindow(master)
 	k=EditContactWindow(master)
 	n=New_AddBookWindow(master)
+	c=ConfirmationWindow(master)
 	master.mainloop()
