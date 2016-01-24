@@ -35,6 +35,9 @@ class EditContactWindow(object):
 
 	def close_window(self):
 		self.top.destroy()
+
+	def save(self):
+		print('save contact')
 		
 	def __init__(self, master):
 		top=self.top=Tk.Toplevel(master)
@@ -125,8 +128,9 @@ class EditContactWindow(object):
 		self.notes = Tk.Entry(top)
 		self.notes.grid(row = 11, column = 1)
 
-		self.add_button = Tk.Button(top, text= 'Save')#, command = #save function)#NEED TO MAKE BUTTON FUNCTIONAL
-		self.add_button.grid(row = 12, column = 2)
+		self.save_button = Tk.Button(top, text= 'Save', command = self.save )
+		self.save_button.grid(row = 12, column = 1, sticky = Tk.E)
 
-		self.cancel_button = Tk.Button(top, text = 'Cancel')#NEED TO MAKE BUTTON FUNCTIONAL
-		self.cancel_button.grid(row = 13, column = 2)
+		self.cancel_button = Tk.Button(top, text = 'Cancel', command = self.close_window )
+		self.cancel_button.grid(row = 12, column = 1)
+

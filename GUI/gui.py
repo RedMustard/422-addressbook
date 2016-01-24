@@ -65,118 +65,142 @@ class mainWindow(object):
 		self.c=cw.ConfirmationWindow(self.master, name)
 		self.master.wait_window(self.c.top)
 
+	def open(self):
+		print('open')
+
+	def save(self):
+		print('save')
 
 	def __init__(self,master):
 		self.master = master
 		master.title('Address Book')
 
-		#entry field
-		# self.item = Tk.Entry(master)
-		# self.item.grid(row=0, column = 1, pady = 10)
-		# self.item.insert(0, 'Enter name')
-
-		#submit button
-		# self.submit = Tk.Button(master, text='Submit', command = self.field_return)
-		# self.submit.grid(row = 1, column = 1)
+		'''
+		self.menu_bar = Tk.Menu(master)
+		menu = Tk.Menu(self.menu_bar, tearoff = 0 )
+		self.menu_bar.add_cascade(label = 'File', menu = menu)
+		menu.add_command(label='Fart')
+		'''
 
 		#new address book button
 		self.new_button = Tk.Button(master, text='New', command = self.popupNew_Addbook)
-		self.new_button.grid(row = 1, column = 2)
+		self.new_button.grid(row = 0, column = 0, sticky = Tk.W, padx = 10, pady = 10 )
 
+		#open address book button
+		self.open_button = Tk.Button(master, text="Open", command = self.open )
+		self.open_button.grid(row = 0, column = 0)
+
+		#save address book button
+
+		self.save_button = Tk.Button(master, text="Save", command = self.save )
+		self.save_button.grid(row = 0, column = 0, sticky = Tk.E)
+
+		#sort option menu default option
+		self.sort = Tk.StringVar(master)
+		self.sort.set('Sort By')
+
+		#sort option menu #self.sort.get() to get the value of user's option
+		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip')# , 'option' #to add another option
+		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, pady = 10 )
 
 		#scroll bar and box list of contacts
 		self.scrollbar = Tk.Scrollbar(master)
-		self.scrollbar.grid(row = 2, column = 2)
+		self.scrollbar.grid(row = 2, column = 1)
 		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set)
-		self.book_list.grid(row = 2, column = 1, padx = 10, pady = 10, rowspan = 7)
+		self.book_list.grid(row = 2, column = 0, rowspan = 10 , padx = 10)
 		self.scrollbar.config(command = self.book_list.yview)
 		
+
+		#search bar
+		self.search_bar = Tk.Entry(master)
+		self.search_bar.grid(row = 0, column = 4 )
+		self.search_bar.insert(0, 'Search')
 
 		# Initialize list of contacts
 		self.contact_list()
 
 		#add contact button
 		self.add_button = Tk.Button(master, text = 'Add', command = self.popupAdd)
-		self.add_button.grid(row= 10, column = 0)
+		self.add_button.grid(row = 12, column = 0, sticky = Tk.W , padx = 10 ) 
 
 		#delete contact button
-		self.delete_button = Tk.Button(master, text = 'Delete', command = self.popup_confirmation)#NEED TO ADD COMMAND
-		self.delete_button.grid(row = 10, column = 1, sticky = Tk.W )
+		self.delete_button = Tk.Button(master, text = 'Delete', command = self.popup_confirmation )
+		self.delete_button.grid(row = 12, column = 0 )
 
 		#edit contact button
 		self.edit_button = Tk.Button(master, text = 'Edit', command = self.popupEdit)
-		self.edit_button.grid(row = 10, column = 6)
+		self.edit_button.grid(row = 12, column = 6, padx = 10, pady = 10 )
 
-		#VIEW OF CONTACT INFO. ON THE LEFT SIDE OF THE WINDOW
+		#VIEW OF CONTACT INFO. ON THE RIGHT SIDE OF THE WINDOW
 		self.first_name_label = Tk.Label(master, text = 'First Name:')
-		self.first_name_label.grid(row= 0, column = 3)
+		self.first_name_label.grid(row= 2, column = 3)
 
 		#input for contacts first name
 		self.first_name = Tk.Entry(master)
-		self.first_name.grid(row = 0, column = 4)
+		self.first_name.grid(row = 2, column = 4)
 
 		self.last_name_label = Tk.Label(master, text = 'Last Name:')
-		self.last_name_label.grid(row = 1, column = 3) 
+		self.last_name_label.grid(row = 3, column = 3) 
 
 		#input for contacts last name
 		self.last_name = Tk.Entry(master)
-		self.last_name.grid(row = 1, column = 4)
+		self.last_name.grid(row = 3, column = 4)
 
 		self.address1_label = Tk.Label(master, text = 'Address 1:')
-		self.address1_label.grid(row = 2, column = 3, sticky = Tk.N)
+		self.address1_label.grid(row = 4, column = 3)
 
 		#input for contacts address1
 		self.address1 = Tk.Entry(master)
-		self.address1.grid(row = 2, column = 4, sticky = Tk.N )
+		self.address1.grid(row = 4, column = 4)
 
 		self.address2_label = Tk.Label(master, text = 'Address 2:')
-		self.address2_label.grid(row = 3, column = 3)
+		self.address2_label.grid(row = 5, column = 3)
 
 		#input for contacts address2
 		self.address2 = Tk.Entry(master)
-		self.address2.grid(row = 3, column = 4)
+		self.address2.grid(row = 5, column = 4)
 
 		self.city_label = Tk.Label(master, text = 'City:')
-		self.city_label.grid(row = 4, column = 3)
+		self.city_label.grid(row = 6, column = 3)
 
 		#input for contacts city
 		self.city = Tk.Entry(master)
-		self.city.grid(row = 4, column = 4)
+		self.city.grid(row = 6, column = 4)
 
 		self.state_label = Tk.Label(master, text = 'State:')
-		self.state_label.grid(row = 5, column = 3)
+		self.state_label.grid(row = 7, column = 3)
 
 		#input for contacts state
 		self.state = Tk.Entry(master)
-		self.state.grid(row = 5, column = 4 )
+		self.state.grid(row = 7, column = 4 )
 
 		self.zip_label = Tk.Label(master, text= 'Zip:')
-		self.zip_label.grid(row = 6, column = 3)
+		self.zip_label.grid(row = 8, column = 3)
 
 		#input for the contacts zip
 		self.zip = Tk.Entry(master)
-		self.zip.grid(row = 6, column = 4)
+		self.zip.grid(row = 8, column = 4)
 
 		self.email_label = Tk.Label(master, text = 'e-Mail:')
-		self.email_label.grid(row = 7, column = 3)
+		self.email_label.grid(row = 9, column = 3)
 
 		#input for contacts email
 		self.email = Tk.Entry(master)
-		self.email.grid(row = 7, column = 4)
+		self.email.grid(row = 9, column = 4)
 
 		self.birthday_label = Tk.Label(master, text = 'Birthday:')
-		self.birthday_label.grid(row = 8, column = 3)
+		self.birthday_label.grid(row = 10, column = 3)
 
 		#input for contacts birthday
 		self.birthday = Tk.Entry(master)
-		self.birthday.grid(row = 8, column = 4)
+		self.birthday.grid(row = 10, column = 4)
 
 		self.notes_label = Tk.Label(master, text = "Notes")
-		self.notes_label.grid(row = 9, column = 3)
+		self.notes_label.grid(row = 11, column = 3 )
 
 		#input for notes on contact
 		self.notes = Tk.Entry(master)
-		self.notes.grid(row = 9, column = 4)
+		self.notes.grid(row = 11, column = 4)
 
 
 if __name__ == "__main__":
@@ -187,3 +211,5 @@ if __name__ == "__main__":
 	n=New_AddBookWindow(master)
 	c=ConfirmationWindow(master)
 	master.mainloop()
+
+

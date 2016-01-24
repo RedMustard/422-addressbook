@@ -3,7 +3,8 @@ import tkinter as Tk
 class New_AddBookWindow(object):
 
 	#function for when Ok button is pressed
-	#def Ok():
+	def ok(self):
+		print('Ok')
 
 	def close_window(self):
 		self.top.destroy()
@@ -23,8 +24,8 @@ class New_AddBookWindow(object):
 		self.book_name = Tk.Entry(top)
 		self.book_name.grid(row = 1 , column = 1, padx = 10, pady = 10)
 
-		self.cancel_button = Tk.Button(top, text = 'Cancel')#, command = cancel_command) #NEED TO MAKE BUTTON FUNCTIONAL
+		self.cancel_button = Tk.Button(top, text = 'Cancel', command = self.close_window )
 		self.cancel_button.grid(row = 2, column = 2)
 
-		self.ok_button = Tk.Button(top, text= 'Ok')#, command = ok_command)#NEED TO MAKE BUTTON FUNCTIONAL
+		self.ok_button = Tk.Button(top, text= 'Ok', command = self.ok )
 		self.ok_button.grid(row = 2, column = 3)

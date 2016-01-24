@@ -149,8 +149,9 @@ class AddContactWindow(object):
 		self.notes = Tk.Entry(top)
 		self.notes.grid(row = 11, column = 1)
 
-		self.add_button = Tk.Button(top, text= 'Add', command = self.field_return)#NEED TO MAKE BUTTON FUNCTIONAL
-		self.add_button.grid(row = 12, column = 2)
+		self.cancel_button = Tk.Button(top, text = 'Cancel', command = self.close_window)
+		self.cancel_button.grid(row = 12, column = 1)
 
-		self.cancel_button = Tk.Button(top, text = 'Cancel')#NEED TO MAKE BUTTON FUNCTIONAL
-		self.cancel_button.grid(row = 13, column = 2)
+		self.add_button = Tk.Button(top, text= 'Add', command = self.field_return)
+		self.add_button.grid(row = 12, column = 1, sticky = Tk.E)
+		
