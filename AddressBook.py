@@ -66,7 +66,7 @@ def edit_contact():
 def new_book():
 	"""Creates a new address book"""
 	book_name = input("Enter the name of your new address book: ")
-	return (db.db_init(book_name))
+	return (db.db_init("book_name"))
 
 def open_book():
 	"""Opens an exisitng address book"""

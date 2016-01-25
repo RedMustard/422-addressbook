@@ -17,6 +17,8 @@ import cw  # Confirmation Window
 
 
 
+
+
 #  Need a function that initializes a new database upon application opening. i.e. when you
 # 		input the name of the database, a call is made to add any existing entries into book_list
 #  Check out field_return to see how the call is made to get_contacts_list()
@@ -82,18 +84,39 @@ class mainWindow(object):
 		menu.add_command(label='Fart')
 		'''
 
+
+		#Menu bar
+		menuBar = Tk.Menu(self.master)
+		options = Tk.Menu(menuBar, tearoff=0)
+		#File tab
+		options.add_command(label="New", command=lambda:function)
+		options.add_command(label="Open", command=lambda:function)
+		options.add_command(label="Close", command=lambda:function)
+		options.add_command(label="Save", command=lambda:function)
+		options.add_command(label="Save as..", command=lambda:function)
+		options.add_command(label="Close", command=lambda:function)
+		options.add_separator()
+		menuBar.add_cascade(label="File", menu=options)
+
+		#Help tab
+		helpOptions = Tk.Menu(menuBar, tearoff=1)
+		helpOptions.add_command(label="Help Documentation", command=lambda:function)
+		helpOptions.add_command(label="About", command=lambda:function)
+		helpOptions.add_separator()
+		menuBar.add_cascade(label="Help", menu=helpOptions)
+		
+		self.master.config(menu=menuBar)
+
+
 		#new address book button
 		self.new_button = Tk.Button(master, text='New', command = self.popupNew_Addbook)
 		self.new_button.grid(row = 0, column = 0, sticky = Tk.W, padx = 10, pady = 10 )
 
 		#open address book button
 		self.open_button = Tk.Button(master, text="Open", command = self.open )
-		self.open_button.grid(row = 0, column = 0)
+		self.open_button.grid(row = 0, column = 0, padx= 10)
 
-		#save address book button
 
-		self.save_button = Tk.Button(master, text="Save", command = self.save )
-		self.save_button.grid(row = 0, column = 0, sticky = Tk.E)
 
 		#sort option menu default option
 		self.sort = Tk.StringVar(master)
@@ -101,12 +124,12 @@ class mainWindow(object):
 
 		#sort option menu #self.sort.get() to get the value of user's option
 		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip')# , 'option' #to add another option
-		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, pady = 10 )
+		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, pady = 10, padx=5 )
 
 		#scroll bar and box list of contacts
 		self.scrollbar = Tk.Scrollbar(master)
-		self.scrollbar.grid(row = 2, column = 1)
-		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set)
+		self.scrollbar.grid(row = 2, column = 1, padx =(0,100))
+		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set, height=20)
 		self.book_list.grid(row = 2, column = 0, rowspan = 10 , padx = 10)
 		self.scrollbar.config(command = self.book_list.yview)
 		
