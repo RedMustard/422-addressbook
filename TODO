@@ -1,13 +1,16 @@
-TODO:
-New window -- Functionality
-	Need to access window from Bridge. Should be the first thing to pop up.
-Edit Contact -- Functionality
-Display contacts in main window
-input validation 
-File menu
-Open/Save address books -- Can be put off
-Sorting -- Functionality
+TODO (IN ORDER OF IMPORTANCE):
+	- Sorting -- Functionality
+	- New window -- Functionality
+		Need to access window from Bridge. Should be the first thing to pop up.
 
-ADVANCED FEATURES:
+	- File menu -- Functionality
+
+
+NOT NECESSARILY NEEDED:
+Open/Save address books
+Input Validation 
+
+
+ADVANCED FEATURES (DEFINITELY NOT NEEDED):
 Importing/Exporting
-Search -- Functionality in the backend is done
+Search -- Functionality in the backend is done (PROBABLY IMPLEMENT THIS)

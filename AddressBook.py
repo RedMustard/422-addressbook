@@ -37,7 +37,8 @@ def get_contact(contact):
 	except:
 		entry.append('');
 
-	print(db.get_id(entry))
+	# print(db.get_id(entry))
+
 	for row in db.get_entry(db.get_id(entry)):
 		return row
 
@@ -83,15 +84,17 @@ def remove_contact(contact):
 	db.delete_entry(db.get_id(entry))
 
 
-def edit_contact():
+def edit_contact(contact):
 	"""Edits a contact"""
+
+	db.edit_entry(db.get_id((contact[0] + contact[1])), contact)
 
 
 def new_book():
 	"""Creates a new address book"""
 	## WINDOW POPS UP HERE ##
 	book_name = input("Enter the name of your new address book: ")
-	return (db.db_init(book_name)) ## <----- PASS USER INPUT 
+	return (db.db_init(book_name)) ## <----- PASS USER INPUT   book_name
 
 def open_book():
 	"""Opens an exisitng address book"""

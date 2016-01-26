@@ -1,12 +1,34 @@
+"""Edit Contact Window
+
+Authors: Austin Gheen, Travis Barnes
+
+Window that pops up when user chooses to edit a contact.
+"""
+
 import tkinter as Tk
 import AddressBook as ab
+import editcw
+import gui
 
 class EditContactWindow(object):
-	"""
+
+	def popup_confirmation(self, field_list):
+		# name = str(self.book_list.get(self.book_list.curselection()))
+		self.c=editcw.ConfirmationWindow(self.master, field_list)
+		self.master.wait_window(self.c.top)
+
 	def field_return(self):
-		#Grabs form data and creates
+		"""Grabs form data and creates"""
 
 		field_list = ['','','','','','','','','','','','']
+		
+		# field_names = ['first_name', 'last_name', 'address1', 'address2', 
+		# 		'city', 'state', 'zip', 'home', 'mobile', 'email', 'birthday']
+
+		# i = 0
+		# for field in field_vars:
+		# 	field = self.{}.format(field_names[i]).get()
+		# 	i += 1
 
 		first = self.first_name.get()
 		last = self.last_name.get()
@@ -26,22 +48,58 @@ class EditContactWindow(object):
 		for i in range(12):
 			field_list[i] = field_vars[i]
 
-		ab.add_contact(field_list)
-	"""
+		# ab.edit_contact(field_list)
+		self.popup_confirmation(field_list)
 
-	# def fill_fields():
-		# """Queries the database and fills in text fields with contact data"""
-		# ab.get
+		gui.mainWindow(self.master).contact_list()
+		# self.contact_list()
+		self.close_window()
 
 	def close_window(self):
 		self.top.destroy()
 
 	def save(self):
 		print('save contact')
+
+	def grab_contact(self):
+		"""Inserts contact information into fields"""
+
+		name_entry = ab.get_contact(self.name)
+
+		self.first_name.insert(0,str(name_entry[0]))
+		self.last_name.insert(0,str(name_entry[1]))
+		self.address1.insert(0,str(name_entry[2]))
+		self.address2.insert(0,str(name_entry[3]))
+		self.city.insert(0,str(name_entry[4]))
+		self.state.insert(0,str(name_entry[5]))
+		self.zip.insert(0,str(name_entry[6]))
+		self.home.insert(0,str(name_entry[7]))
+		self.mobile.insert(0,str(name_entry[8]))
+		self.email.insert(0,str(name_entry[9]))
+		self.birthday.insert(0,str(name_entry[10]))
+		self.notes.insert(0,str(name_entry[11]))
+
+	def clear_text_entries(self):
+		"""Clears any value in text fields. For use when user selects different contact"""
+
+		self.first_name.delete(0,Tk.END)
+		self.last_name.delete(0,Tk.END)
+		self.address1.delete(0,Tk.END)
+		self.address2.delete(0,Tk.END)
+		self.city.delete(0,Tk.END)
+		self.state.delete(0,Tk.END)
+		self.zip.delete(0,Tk.END)
+		self.home.delete(0,Tk.END)
+		self.mobile.delete(0,Tk.END)
+		self.email.delete(0,Tk.END)
+		self.birthday.delete(0,Tk.END)
+		self.notes.delete(0,Tk.END)
 		
-	def __init__(self, master):
+
+	def __init__(self, master, name):
 		top=self.top=Tk.Toplevel(master)
 		self.master = master
+		self.name = name
 		top.title('Edit Contact')
 
 		self.first_name_label = Tk.Label(top, text = 'First Name:')
@@ -101,13 +159,13 @@ class EditContactWindow(object):
 		self.home.grid(row = 7, column = 1)
 
 		# Input for contact mobile phone
-		self.mobile_label = Tk.Label(top, text = 'Home Phone:')
+		self.mobile_label = Tk.Label(top, text = 'Mobile Phone:')
 		self.mobile_label.grid(row = 8)
 
 		self.mobile = Tk.Entry(top)
 		self.mobile.grid(row = 8, column = 1)
 		
-		self.email_label = Tk.Label(top, text = 'e-mail:')
+		self.email_label = Tk.Label(top, text = 'Email:')
 		self.email_label.grid(row = 9)
 
 		#input for contacts email
@@ -128,7 +186,10 @@ class EditContactWindow(object):
 		self.notes = Tk.Entry(top)
 		self.notes.grid(row = 11, column = 1)
 
-		self.save_button = Tk.Button(top, text= 'Save', command = self.save )
+		self.clear_text_entries()
+		self.grab_contact()
+
+		self.save_button = Tk.Button(top, text= 'Save', command = self.field_return )
 		self.save_button.grid(row = 12, column = 1, sticky = Tk.E)
 
 		self.cancel_button = Tk.Button(top, text = 'Cancel', command = self.close_window )

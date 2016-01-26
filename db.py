@@ -62,32 +62,6 @@ def get_id(entry):
 		return row[0]
 
 
-# def create_entry(first, last, st1, st2, city, st, zip, home, mob, email, bday, 
-# 	note):
-# 	"""Creates an entry list object.
-
-# 	Keyword returns:
-# 	entry -- A list object
-# 	"""
-
-# 	entry = []
-
-# 	entry.append(first)
-# 	entry.append(last) 
-# 	entry.append(st1)
-# 	entry.append(st2)
-# 	entry.append(city)
-# 	entry.append(st)
-# 	entry.append(zip)
-# 	entry.append(home)
-# 	entry.append(mob)
-# 	entry.append(email)
-# 	entry.append(bday)
-# 	entry.append(note)
-
-# 	return entry
-
-
 def insert_entry(entry):
 	"""Inserts a new entry into database.
 
@@ -122,17 +96,13 @@ def get_entry(entry_id):
 
 	return cfg.C
 
-	# del_confirm = input("Are you sure you want to delete the contact? (1/0)")
-
-	# if del_confirm == '1':
-	# 	cfg.DB.commit()
 
 def db_commit():
 	"""Commits all changes to database."""
 	cfg.DB.commit()
 
 
-def edit_entry(entry):
+def edit_entry(id, entry):
 	"""Updates entry in database.
 
 	Keyword arguments:
@@ -147,8 +117,6 @@ def edit_entry(entry):
 	cfg.C.execute(entry_update, [entry[0], entry[1], entry[2], entry[3], 
 		entry[4], entry[5], entry[6], entry[7], entry[8], entry[9], entry[10],
 		entry[11], '{}'.format(get_id(entry))])
-
-	cfg.DB.commit()
 
 
 def query_entrylist(sort):

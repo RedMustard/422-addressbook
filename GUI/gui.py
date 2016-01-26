@@ -13,7 +13,7 @@ import AddressBook as ab
 import new # New address book window
 import ecw # Edit Contact Window
 import acw # Add Contact Window
-import cw  # Confirmation Window
+import dcw  # Confirmation Window
 
 #  Need a function that initializes a new database upon application opening. i.e. when you
 # 		input the name of the database, a call is made to add any existing entries into book_list
@@ -58,13 +58,14 @@ class mainWindow(object):
 
 
 	def popupEdit(self):
-		self.k=ecw.EditContactWindow(self.master)
+		name = str(self.book_list.get(self.book_list.curselection()))
+		self.k=ecw.EditContactWindow(self.master, name)
 		self.master.wait_window(self.k.top)
 
 
 	def popup_confirmation(self):
 		name = str(self.book_list.get(self.book_list.curselection()))
-		self.c=cw.ConfirmationWindow(self.master, name)
+		self.c=dcw.ConfirmationWindow(self.master, name)
 		self.master.wait_window(self.c.top)
 
 
@@ -255,7 +256,7 @@ class mainWindow(object):
 
 
 
-		self.email_label = Tk.Label(master, text = 'E-mail:')
+		self.email_label = Tk.Label(master, text = 'Email:')
 		self.email_label.grid(row = 11, column = 3)
 
 		#input for contacts email

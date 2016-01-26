@@ -1,3 +1,9 @@
+"""Add Contact Window
+
+Authors: Austin Gheen, Travis Barnes
+
+Window that pops up when user chooses to add a contact.
+"""
 
 import tkinter as Tk
 import AddressBook as ab
@@ -128,7 +134,7 @@ class AddContactWindow(object):
 		self.mobile = Tk.Entry(top)
 		self.mobile.grid(row = 8, column = 1)
 		
-		self.email_label = Tk.Label(top, text = 'e-mail:')
+		self.email_label = Tk.Label(top, text = 'Email:')
 		self.email_label.grid(row = 9)
 
 		#input for contacts email

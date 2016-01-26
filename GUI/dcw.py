@@ -1,4 +1,4 @@
-"""Confirmation Window
+"""Delete Confirmation Window
 
 Authors: Austin Gheen, Brandon Cao
 
