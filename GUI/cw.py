@@ -7,7 +7,7 @@ class ConfirmationWindow(object):
 	def yes(self):
 		name = self.name
 		gui.mainWindow(self.master).delete_contact(name)
-		db.save_changes()
+		db.db_commit()
 		self.top.destroy()
 
 	def no(self):

@@ -16,8 +16,10 @@ def get_contacts_list(sort):
 	"""
 	"""
 	contacts = []
+	
 	for row in (db.query_entrylist(sort)):
 		contacts.append(row)
+
 	return contacts
 	
 
