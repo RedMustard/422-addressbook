@@ -101,14 +101,26 @@ def insert_entry(entry):
 	cfg.DB.commit()
 
 
-def delete_entry(id):
+def delete_entry(entry_id):
 	"""Removes entry from database.
 
 	Keyword arguments:
 	entry -- A list object
 	"""
 
-	cfg.C.execute("DELETE FROM Contacts WHERE rowid = ?", '{}'.format(id))
+	cfg.C.execute("DELETE FROM Contacts WHERE rowid = ?", [entry_id])
+
+
+def get_entry(entry_id):
+	"""Queries entry from database.
+
+	Keyword arguments:
+	entry -- A list object
+	"""
+
+	cfg.C.execute("SELECT * FROM Contacts WHERE rowid = ?", [entry_id])
+
+	return cfg.C
 
 	# del_confirm = input("Are you sure you want to delete the contact? (1/0)")
 

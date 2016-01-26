@@ -21,6 +21,28 @@ def get_contacts_list(sort):
 		contacts.append(row)
 
 	return contacts
+
+def get_contact(contact):
+	"""
+	"""
+	entry = []
+
+	try:
+		entry.append(contact.split()[0])
+	except:
+		entry.append('')
+
+	try:
+		entry.append(contact.split()[1])
+	except:
+		entry.append('');
+
+	print(db.get_id(entry))
+	for row in db.get_entry(db.get_id(entry)):
+		return row
+
+	# print(entry)
+
 	
 
 def create_contact(contact):
@@ -67,8 +89,9 @@ def edit_contact():
 
 def new_book():
 	"""Creates a new address book"""
+	## WINDOW POPS UP HERE ##
 	book_name = input("Enter the name of your new address book: ")
-	return (db.db_init("book_name"))
+	return (db.db_init(book_name)) ## <----- PASS USER INPUT 
 
 def open_book():
 	"""Opens an exisitng address book"""
@@ -79,5 +102,6 @@ if __name__ == "__main__":
     root = Tk.Tk()
     gui.mainWindow(root)
     root.mainloop()
+
     # gui.root.mainloop()
 	

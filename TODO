@@ -1,11 +1,12 @@
 TODO:
 New window -- Functionality
-Edit Contact
+	Need to access window from Bridge. Should be the first thing to pop up.
+Edit Contact -- Functionality
 Display contacts in main window
-input validation
+input validation 
 File menu
-Open/Save address books
-Sorting
+Open/Save address books -- Can be put off
+Sorting -- Functionality
 
 ADVANCED FEATURES:
 Importing/Exporting

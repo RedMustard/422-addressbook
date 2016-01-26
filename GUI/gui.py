@@ -1,6 +1,6 @@
 """Address Book GUI
 
-Authors: Austin Gheen, Travis Barnes
+Authors: Austin Gheen, Travis Barnes, Brandon Cao
 CIS422 Winter 2016
 
 AddressBook.py
@@ -15,10 +15,6 @@ import ecw # Edit Contact Window
 import acw # Add Contact Window
 import cw  # Confirmation Window
 
-
-
-
-
 #  Need a function that initializes a new database upon application opening. i.e. when you
 # 		input the name of the database, a call is made to add any existing entries into book_list
 #  Check out field_return to see how the call is made to get_contacts_list()
@@ -28,18 +24,19 @@ class mainWindow(object):
 	def close_window(self):
 		self.top.destroy()
 
+
 	def contact_list(self):
 		"""Retrieves list of contacts"""
 		self.book_list.delete(0, Tk.END)
 		for contact in ab.get_contacts_list('last'):
 			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 			
+
 	def delete_contact(self, name):
 		"""Deletes selected contact"""
-		# self.contact_selection = str(self.book_list.get(self.book_list.curselection()))
 		ab.remove_contact(name)
 		self.contact_list()
-		# self.popup_confirmation()
+
 
 	def field_return(self):
 		i = 0
@@ -48,6 +45,7 @@ class mainWindow(object):
 		self.book_list.delete(0, Tk.END)
 		for contact in ab.get_contacts_list('last'):
 			self.book_list.insert(Tk.END, contact[0]+contact[1])
+
 
 	def popupNew_Addbook(self):
 		self.n = new.New_AddBookWindow(self.master)
@@ -58,37 +56,51 @@ class mainWindow(object):
 		self.w=acw.AddContactWindow(self.master)
 		self.master.wait_window(self.w.top)
 
+
 	def popupEdit(self):
 		self.k=ecw.EditContactWindow(self.master)
 		self.master.wait_window(self.k.top)
+
 
 	def popup_confirmation(self):
 		name = str(self.book_list.get(self.book_list.curselection()))
 		self.c=cw.ConfirmationWindow(self.master, name)
 		self.master.wait_window(self.c.top)
 
+
 	def open(self):
 		print('open')
+
 
 	def save(self):
 		print('save')
 
-	''' 
-		On click event that happens on selection of an item in our ListBox.
-		Fills all text entries with contact information.
-	'''
-	def onSelect(self,evnt):
-		w = evnt.widget
+
+	def onSelect(self,event):
+		"""Grabs name from contact list upon user click."""
+		w = event.widget
 		name = str(self.book_list.get(self.book_list.curselection()))
 		self.clearTextEntries()
-		self.first_name.insert(0,str(name))
+		
+		name_entry = ab.get_contact(name)
 
-		print(name)
+		self.first_name.insert(0,str(name_entry[0]))
+		self.last_name.insert(0,str(name_entry[1]))
+		self.address1.insert(0,str(name_entry[2]))
+		self.address2.insert(0,str(name_entry[3]))
+		self.city.insert(0,str(name_entry[4]))
+		self.state.insert(0,str(name_entry[5]))
+		self.zip.insert(0,str(name_entry[6]))
+		self.home.insert(0,str(name_entry[7]))
+		self.mobile.insert(0,str(name_entry[8]))
+		self.email.insert(0,str(name_entry[9]))
+		self.birthday.insert(0,str(name_entry[10]))
+		self.notes.insert(0,str(name_entry[11]))
+		# print(name)
 
-	''' 
-		Clears all text fields in main window.
-	'''
+
 	def clearTextEntries(self):
+		"""Clears any value in text fields. For use when user selects different contact"""
 		self.first_name.delete(0,Tk.END)
 		self.last_name.delete(0,Tk.END)
 		self.address1.delete(0,Tk.END)
@@ -96,6 +108,8 @@ class mainWindow(object):
 		self.city.delete(0,Tk.END)
 		self.state.delete(0,Tk.END)
 		self.zip.delete(0,Tk.END)
+		self.home.delete(0,Tk.END)
+		self.mobile.delete(0,Tk.END)
 		self.email.delete(0,Tk.END)
 		self.birthday.delete(0,Tk.END)
 		self.notes.delete(0,Tk.END)
@@ -104,14 +118,6 @@ class mainWindow(object):
 	def __init__(self,master):
 		self.master = master
 		master.title('Address Book')
-
-		'''
-		self.menu_bar = Tk.Menu(master)
-		menu = Tk.Menu(self.menu_bar, tearoff = 0 )
-		self.menu_bar.add_cascade(label = 'File', menu = menu)
-		menu.add_command(label='Fart')
-		'''
-
 
 		#Menu bar
 		menuBar = Tk.Menu(self.master)
@@ -233,26 +239,42 @@ class mainWindow(object):
 		self.zip = Tk.Entry(master)
 		self.zip.grid(row = 8, column = 4)
 
-		self.email_label = Tk.Label(master, text = 'e-Mail:')
-		self.email_label.grid(row = 9, column = 3)
+
+		# Home phone
+		self.home_label = Tk.Label(master, text = 'Home:')
+		self.home_label.grid(row = 9, column = 3)
+		self.home = Tk.Entry(master)
+		self.home.grid(row = 9, column = 4)
+
+		# Mobile phone
+		self.mobile_label = Tk.Label(master, text = 'Mobile:')
+		self.mobile_label.grid(row = 10, column = 3)
+		self.mobile = Tk.Entry(master)
+		self.mobile.grid(row = 10, column = 4)
+
+
+
+
+		self.email_label = Tk.Label(master, text = 'E-mail:')
+		self.email_label.grid(row = 11, column = 3)
 
 		#input for contacts email
 		self.email = Tk.Entry(master)
-		self.email.grid(row = 9, column = 4)
+		self.email.grid(row = 11, column = 4)
 
 		self.birthday_label = Tk.Label(master, text = 'Birthday:')
-		self.birthday_label.grid(row = 10, column = 3)
+		self.birthday_label.grid(row = 12, column = 3)
 
 		#input for contacts birthday
 		self.birthday = Tk.Entry(master)
-		self.birthday.grid(row = 10, column = 4)
+		self.birthday.grid(row = 12, column = 4)
 
 		self.notes_label = Tk.Label(master, text = "Notes")
-		self.notes_label.grid(row = 11, column = 3 )
+		self.notes_label.grid(row = 13, column = 3 )
 
 		#input for notes on contact
 		self.notes = Tk.Entry(master)
-		self.notes.grid(row = 11, column = 4)
+		self.notes.grid(row = 13, column = 4)
 
 
 if __name__ == "__main__":
