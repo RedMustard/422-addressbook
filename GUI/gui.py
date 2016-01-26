@@ -73,6 +73,12 @@ class mainWindow(object):
 	def save(self):
 		print('save')
 
+	
+	def onSelect(self,evnt):
+		w = evnt.widget
+		name = str(self.book_list.get(self.book_list.curselection()))
+		print(name)
+
 	def __init__(self,master):
 		self.master = master
 		master.title('Address Book')
@@ -128,10 +134,11 @@ class mainWindow(object):
 
 		#scroll bar and box list of contacts
 		self.scrollbar = Tk.Scrollbar(master)
-		self.scrollbar.grid(row = 2, column = 1, padx =(0,100))
+		self.scrollbar.grid(row = 2, column = 1)
 		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set, height=20)
-		self.book_list.grid(row = 2, column = 0, rowspan = 10 , padx = 10)
+		self.book_list.grid(row = 2, column = 0, rowspan = 10 , padx = 15)
 		self.scrollbar.config(command = self.book_list.yview)
+		self.book_list.bind('<<ListboxSelect>>', self.onSelect)
 		
 
 		#search bar
