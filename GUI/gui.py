@@ -73,11 +73,33 @@ class mainWindow(object):
 	def save(self):
 		print('save')
 
-	
+	''' 
+		On click event that happens on selection of an item in our ListBox.
+		Fills all text entries with contact information.
+	'''
 	def onSelect(self,evnt):
 		w = evnt.widget
 		name = str(self.book_list.get(self.book_list.curselection()))
+		self.clearTextEntries()
+		self.first_name.insert(0,str(name))
+
 		print(name)
+
+	''' 
+		Clears all text fields in main window.
+	'''
+	def clearTextEntries(self):
+		self.first_name.delete(0,Tk.END)
+		self.last_name.delete(0,Tk.END)
+		self.address1.delete(0,Tk.END)
+		self.address2.delete(0,Tk.END)
+		self.city.delete(0,Tk.END)
+		self.state.delete(0,Tk.END)
+		self.zip.delete(0,Tk.END)
+		self.email.delete(0,Tk.END)
+		self.birthday.delete(0,Tk.END)
+		self.notes.delete(0,Tk.END)
+
 
 	def __init__(self,master):
 		self.master = master
