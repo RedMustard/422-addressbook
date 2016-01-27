@@ -145,7 +145,7 @@ class mainWindow(object):
 
 		#new address book button
 		self.new_button = Tk.Button(master, text='New', command = self.popupNew_Addbook)
-		self.new_button.grid(row = 0, column = 0, sticky = Tk.W, padx = 10, pady = 10 )
+		self.new_button.grid(row = 0, column = 0, sticky = Tk.W, padx = 15, pady = 10 )
 
 		#open address book button
 		self.open_button = Tk.Button(master, text="Open", command = self.open )
@@ -159,20 +159,20 @@ class mainWindow(object):
 
 		#sort option menu #self.sort.get() to get the value of user's option
 		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip')# , 'option' #to add another option
-		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, pady = 10, padx=5 )
+		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, padx = 10)
 
 		#scroll bar and box list of contacts
 		self.scrollbar = Tk.Scrollbar(master)
 		self.scrollbar.grid(row = 2, column = 1)
 		self.book_list = Tk.Listbox(master, yscrollcommand = self.scrollbar.set, height=20)
-		self.book_list.grid(row = 2, column = 0, rowspan = 10 , padx = 15)
+		self.book_list.grid(row = 2, column = 0, rowspan = 12 , padx = 15)
 		self.scrollbar.config(command = self.book_list.yview)
 		self.book_list.bind('<<ListboxSelect>>', self.onSelect)
 		
 
 		#search bar
 		self.search_bar = Tk.Entry(master)
-		self.search_bar.grid(row = 0, column = 4 )
+		self.search_bar.grid(row = 0, column = 4, padx = 10 )
 		self.search_bar.insert(0, 'Search')
 
 		# Initialize list of contacts
@@ -180,15 +180,15 @@ class mainWindow(object):
 
 		#add contact button
 		self.add_button = Tk.Button(master, text = 'Add', command = self.popupAdd)
-		self.add_button.grid(row = 12, column = 0, sticky = Tk.W , padx = 10 ) 
+		self.add_button.grid(row = 14, column = 0, sticky = Tk.W , padx = 12 ) 
 
 		#delete contact button
 		self.delete_button = Tk.Button(master, text = 'Delete', command = self.popup_confirmation )
-		self.delete_button.grid(row = 12, column = 0 )
+		self.delete_button.grid(row = 14, column = 0 )
 
 		#edit contact button
 		self.edit_button = Tk.Button(master, text = 'Edit', command = self.popupEdit)
-		self.edit_button.grid(row = 12, column = 6, padx = 10, pady = 10 )
+		self.edit_button.grid(row = 14, column = 4, padx = 10, sticky = Tk.E )
 
 		#VIEW OF CONTACT INFO. ON THE RIGHT SIDE OF THE WINDOW
 		self.first_name_label = Tk.Label(master, text = 'First Name:')
@@ -252,9 +252,6 @@ class mainWindow(object):
 		self.mobile_label.grid(row = 10, column = 3)
 		self.mobile = Tk.Entry(master)
 		self.mobile.grid(row = 10, column = 4)
-
-
-
 
 		self.email_label = Tk.Label(master, text = 'Email:')
 		self.email_label.grid(row = 11, column = 3)

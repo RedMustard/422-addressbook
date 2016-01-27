@@ -76,7 +76,7 @@ class AddContactWindow(object):
 
 		#input for contacts first name
 		self.first_name = Tk.Entry(top)
-		self.first_name.grid(row = 0, column = 1)
+		self.first_name.grid(row = 0, column = 1, padx = 10)
 
 		self.last_name_label = Tk.Label(top, text = 'Last Name:')
 		self.last_name_label.grid(row = 1) 
@@ -159,5 +159,5 @@ class AddContactWindow(object):
 		self.cancel_button.grid(row = 12, column = 1)
 
 		self.add_button = Tk.Button(top, text= 'Add', command = self.field_return)
-		self.add_button.grid(row = 12, column = 1, sticky = Tk.E)
+		self.add_button.grid(row = 12, column = 1, padx = 10, sticky = Tk.E)
 		
