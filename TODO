@@ -1,8 +1,4 @@
 TODO (IN ORDER OF IMPORTANCE):
-	- Sorting -- Functionality
-	- New window -- Functionality
-		Need to access window from Bridge. Should be the first thing to pop up.
-
 	- File menu -- Functionality
 
 
@@ -14,3 +10,7 @@ Input Validation
 ADVANCED FEATURES (DEFINITELY NOT NEEDED):
 Importing/Exporting
 Search -- Functionality in the backend is done (PROBABLY IMPLEMENT THIS)
+
+
+KNOWN BUGS:
+- Can't select entry without a first name

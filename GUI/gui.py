@@ -10,6 +10,7 @@ sys.path.insert(0, '..')
 
 import tkinter as Tk
 import AddressBook as ab
+import db
 import new # New address book window
 import ecw # Edit Contact Window
 import acw # Add Contact Window
@@ -25,17 +26,18 @@ class mainWindow(object):
 		self.top.destroy()
 
 
-	def contact_list(self):
+	def contact_list(self, sort):
 		"""Retrieves list of contacts"""
 		self.book_list.delete(0, Tk.END)
-		for contact in ab.get_contacts_list('last'):
+		
+		for contact in ab.get_contacts_list(self.sort.get()):
 			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 			
 
 	def delete_contact(self, name):
 		"""Deletes selected contact"""
 		ab.remove_contact(name)
-		self.contact_list()
+		self.contact_list(self.sort.get())
 
 
 	def field_return(self):
@@ -59,7 +61,20 @@ class mainWindow(object):
 
 	def popupEdit(self):
 		name = str(self.book_list.get(self.book_list.curselection()))
-		self.k=ecw.EditContactWindow(self.master, name)
+		entry = []
+
+		try:
+			entry.append(name.split()[0])
+		except:
+			entry.append('')
+
+		try:
+			entry.append(name.split()[1])
+		except:
+			entry.append('');
+
+		entry_id = db.get_id(entry)
+		self.k=ecw.EditContactWindow(self.master, name, entry_id)
 		self.master.wait_window(self.k.top)
 
 
@@ -76,9 +91,9 @@ class mainWindow(object):
 	def save(self):
 		print('save')
 
+
 	def quit(self):
 		sys.exit()
-
 
 
 	def onSelect(self,event):
@@ -101,7 +116,6 @@ class mainWindow(object):
 		self.email.insert(0,str(name_entry[9]))
 		self.birthday.insert(0,str(name_entry[10]))
 		self.notes.insert(0,str(name_entry[11]))
-		# print(name)
 
 
 	def clearTextEntries(self):
@@ -146,7 +160,6 @@ class mainWindow(object):
 		
 		self.master.config(menu=menuBar)
 
-
 		#new address book button
 		self.new_button = Tk.Button(master, text='New', command = self.popupNew_Addbook)
 		self.new_button.grid(row = 0, column = 0, sticky = Tk.W, padx = 15, pady = 10 )
@@ -155,14 +168,12 @@ class mainWindow(object):
 		self.open_button = Tk.Button(master, text="Open", command = self.open )
 		self.open_button.grid(row = 0, column = 0, padx= 10)
 
-
-
 		#sort option menu default option
 		self.sort = Tk.StringVar(master)
-		self.sort.set('Sort By')
+		self.sort.set('Last Name')
 
 		#sort option menu #self.sort.get() to get the value of user's option
-		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip')# , 'option' #to add another option
+		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip', command = self.contact_list)# , 'option' #to add another option
 		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, padx = 10)
 
 		#scroll bar and box list of contacts
@@ -173,14 +184,13 @@ class mainWindow(object):
 		self.scrollbar.config(command = self.book_list.yview)
 		self.book_list.bind('<<ListboxSelect>>', self.onSelect)
 		
-
 		#search bar
 		self.search_bar = Tk.Entry(master)
 		self.search_bar.grid(row = 0, column = 4, padx = 10 )
 		self.search_bar.insert(0, 'Search')
 
 		# Initialize list of contacts
-		self.contact_list()
+		self.contact_list(self.sort.get())
 
 		#add contact button
 		self.add_button = Tk.Button(master, text = 'Add', command = self.popupAdd)

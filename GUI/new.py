@@ -6,7 +6,6 @@ class New_AddBookWindow(object):
 
 	#function for when Ok button is pressed
 	def ok(self):
-		print('Ok')
 		book_name = self.book_name.get()
 		db.db_init(book_name) ## <----- PASS USER INPUT   book_name
 		root = Tk.Tk()
@@ -16,9 +15,9 @@ class New_AddBookWindow(object):
 		sys.exit()
 
 
-
 	def close_window(self):
 		self.master.destroy()
+
 
 	def __init__(self, master):
 		self.new = master

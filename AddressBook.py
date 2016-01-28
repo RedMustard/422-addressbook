@@ -87,8 +87,6 @@ def remove_contact(contact):
 
 def edit_contact(entry_id, contact):
 	"""Edits a contact"""
-	print("AB.contact: {}".format(contact))
-	print("AB.Entry id: {}".format(entry_id)) #db.get_id((contact[0] + contact[1]))
 	db.edit_entry(entry_id, contact)
 
 

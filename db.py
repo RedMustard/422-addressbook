@@ -109,8 +109,6 @@ def edit_entry(entry_id, entry):
 	entry -- A list object
 	id -- Corresponding ID number for an entry.
 	"""
-	print(entry)
-	print()
 	entry_update = '''UPDATE Contacts SET First = ?, Last = ?, Street1 = ?,
 			Street2 = ?, City = ?, State = ?, Zip = ?, Home = ?, Mobile = ?, 
 			Email = ?, Birthday = ?, Notes = ? WHERE rowid = ? '''
@@ -127,11 +125,11 @@ def query_entrylist(sort):
 	sort -- String containing sorting method
 	"""
 
-	if sort == 'last':
+	if sort == 'Last Name':
 		last_name = '''SELECT * FROM Contacts ORDER BY Last ASC, First ASC'''
 		cfg.C.execute(last_name)
 
-	elif sort == 'zip':
+	elif sort == 'Zip':
 		zip_code = '''SELECT * FROM Contacts ORDER BY Zip ASC, Last ASC'''
 		cfg.C.execute(zip_code)
 

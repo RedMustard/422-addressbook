@@ -33,14 +33,6 @@ class AddContactWindow(object):
 
 		field_list = ['','','','','','','','','','','','']
 		
-		# field_names = ['first_name', 'last_name', 'address1', 'address2', 
-		# 		'city', 'state', 'zip', 'home', 'mobile', 'email', 'birthday']
-
-		# i = 0
-		# for field in field_vars:
-		# 	field = self.{}.format(field_names[i]).get()
-		# 	i += 1
-
 		first = self.first_name.get()
 		last = self.last_name.get()
 		st1 = self.address1.get()
@@ -63,7 +55,6 @@ class AddContactWindow(object):
 		gui.mainWindow(self.master).contact_list()
 		# self.contact_list()
 		self.close_window()
-
 
 
 	def __init__(self,master):

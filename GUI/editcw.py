@@ -18,6 +18,7 @@ class ConfirmationWindow(object):
 		db.db_commit()
 		self.top.destroy()
 
+
 	def no(self):
 		# gui.mainWindow(self.master).contact_list()
 		self.top.destroy()

@@ -17,18 +17,11 @@ class EditContactWindow(object):
 		self.c=editcw.ConfirmationWindow(self.master, field_list, entry_id)
 		self.master.wait_window(self.c.top)
 
+
 	def field_return(self):
 		"""Grabs form data and creates"""
 
 		field_list = ['','','','','','','','','','','','']
-		
-		# field_names = ['first_name', 'last_name', 'address1', 'address2', 
-		# 		'city', 'state', 'zip', 'home', 'mobile', 'email', 'birthday']
-
-		# i = 0
-		# for field in field_vars:
-		# 	field = self.{}.format(field_names[i]).get()
-		# 	i += 1
 
 		first = self.first_name.get()
 		last = self.last_name.get()
@@ -48,17 +41,14 @@ class EditContactWindow(object):
 		for i in range(12):
 			field_list[i] = field_vars[i]
 
-		print(field_list)
-		# ab.edit_contact(field_list)
 		self.popup_confirmation(field_list, self.entry_id)
-		gui.mainWindow(self.master).contact_list()
+		gui.mainWindow(self.master).contact_list(gui.mainWindow(self.master).sort.get())
 		self.close_window()
+
 
 	def close_window(self):
 		self.top.destroy()
 
-	def save(self):
-		print('save contact')
 
 	def grab_contact(self):
 		"""Inserts contact information into fields"""
@@ -77,6 +67,7 @@ class EditContactWindow(object):
 		self.email.insert(0,str(name_entry[9]))
 		self.birthday.insert(0,str(name_entry[10]))
 		self.notes.insert(0,str(name_entry[11]))
+
 
 	def clear_text_entries(self):
 		"""Clears any value in text fields. For use when user selects different contact"""
