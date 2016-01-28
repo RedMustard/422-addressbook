@@ -4,14 +4,9 @@ TODO (IN ORDER OF IMPORTANCE):
 
 NOT NECESSARILY NEEDED:
 Open/Save address books
-Input Validation 
-
-
-ADVANCED FEATURES (DEFINITELY NOT NEEDED):
-Importing/Exporting
 
 
 KNOWN BUGS:
-- Can't select entry without a first name
-- New button merges the NABW into main window
-- When closing the address book, the program continues to run
+- Can't select entry without a first name (Backend)
+- New button merges the NABW into main window (GUI)
+- When closing the address book, the program continues to run (GUI)

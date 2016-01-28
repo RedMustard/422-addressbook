@@ -13,15 +13,15 @@ import db
 import new
 
 
-def get_contacts_list(sort):
-	"""
-	"""
-	contacts = []
+# def get_contacts_list(sort):
+# 	"""
+# 	"""
+# 	contacts = []
 	
-	for row in (db.query_entrylist(sort)):
-		contacts.append(row)
+# 	for row in (db.query_entrylist(sort)):
+# 		contacts.append(row)
 
-	return contacts
+# 	return contacts
 
 
 def get_contact(contact):
@@ -30,7 +30,14 @@ def get_contact(contact):
 	entry = []
 
 	try:
-		entry.append(contact.split()[0])
+		try:
+			if contact.split()[1]:
+				entry.append(contact.split()[0])
+				print("some	")
+		except:
+			print('thing')
+			entry.append('')
+
 	except:
 		entry.append('')
 
@@ -39,12 +46,8 @@ def get_contact(contact):
 	except:
 		entry.append('');
 
-	# print(db.get_id(entry))
-
 	for row in db.get_entry(db.get_id(entry)):
 		return row
-
-	# print(entry)
 
 
 def create_contact(contact):
@@ -62,6 +65,7 @@ def create_contact(contact):
 	entry.append('')
 	entry.append('')
 	entry.append('')
+	print(entry)
 	return entry
 
 
