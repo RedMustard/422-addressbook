@@ -52,7 +52,7 @@ class AddContactWindow(object):
 			field_list[i] = field_vars[i]
 
 		ab.add_contact(field_list)
-		gui.mainWindow(self.master).contact_list()
+		gui.mainWindow(self.master).contact_list(gui.mainWindow(self.master).sort.get())
 		# self.contact_list()
 		self.close_window()
 
