@@ -117,6 +117,21 @@ class mainWindow(object):
 		self.birthday.insert(0,str(name_entry[10]))
 		self.notes.insert(0,str(name_entry[11]))
 
+		#User cannot edit entry displayed on main GUI, unless clicking edit button. 
+		self.first_name.configure(state='readonly')
+		self.last_name.configure(state='readonly')
+		self.address1.configure(state='readonly')
+		self.address2.configure(state='readonly')
+		self.city.configure(state='readonly')
+		self.state.configure(state='readonly')
+		self.zip.configure(state='readonly')
+		self.home.configure(state='readonly')
+		self.mobile.configure(state='readonly')
+		self.email.configure(state='readonly')
+		self.birthday.configure(state='readonly')
+		self.notes.configure(state='readonly')
+
+
 
 	def clearTextEntries(self):
 		"""Clears any value in text fields. For use when user selects different contact"""
