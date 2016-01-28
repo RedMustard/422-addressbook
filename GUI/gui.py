@@ -38,6 +38,7 @@ class mainWindow(object):
 		self.search_query(self.sort.get())
 
 
+
 	def search_query(self, sort):
 		""" """
 		self.book_list.delete(0, Tk.END)
@@ -59,9 +60,9 @@ class mainWindow(object):
 		for contact in ab.get_contacts_list('last'):
 			self.book_list.insert(Tk.END, contact[0]+contact[1])
 
-
 	def popupNew_Addbook(self):
-		self.n = new.New_AddBookWindow(self.master)
+		newWindow = Tk.Toplevel(self.master)
+		self.n = new.New_AddBookWindow(newWindow)
 		self.master.wait_window(self.n.top)
 
 
