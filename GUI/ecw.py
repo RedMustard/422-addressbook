@@ -12,9 +12,9 @@ import gui
 
 class EditContactWindow(object):
 
-	def popup_confirmation(self, field_list):
+	def popup_confirmation(self, field_list, entry_id):
 		# name = str(self.book_list.get(self.book_list.curselection()))
-		self.c=editcw.ConfirmationWindow(self.master, field_list)
+		self.c=editcw.ConfirmationWindow(self.master, field_list, entry_id)
 		self.master.wait_window(self.c.top)
 
 	def field_return(self):
@@ -48,11 +48,10 @@ class EditContactWindow(object):
 		for i in range(12):
 			field_list[i] = field_vars[i]
 
+		print(field_list)
 		# ab.edit_contact(field_list)
-		self.popup_confirmation(field_list)
-
+		self.popup_confirmation(field_list, self.entry_id)
 		gui.mainWindow(self.master).contact_list()
-		# self.contact_list()
 		self.close_window()
 
 	def close_window(self):
@@ -96,10 +95,11 @@ class EditContactWindow(object):
 		self.notes.delete(0,Tk.END)
 		
 
-	def __init__(self, master, name):
+	def __init__(self, master, name, entry_id):
 		top=self.top=Tk.Toplevel(master)
 		self.master = master
 		self.name = name
+		self.entry_id = entry_id
 		top.title('Edit Contact')
 
 		self.first_name_label = Tk.Label(top, text = 'First Name:')

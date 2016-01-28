@@ -10,6 +10,7 @@ sys.path.insert(0, '..')
 
 import tkinter as Tk
 import AddressBook as ab
+import db
 import new # New address book window
 import ecw # Edit Contact Window
 import acw # Add Contact Window
@@ -59,7 +60,21 @@ class mainWindow(object):
 
 	def popupEdit(self):
 		name = str(self.book_list.get(self.book_list.curselection()))
-		self.k=ecw.EditContactWindow(self.master, name)
+		entry = []
+
+		try:
+			entry.append(name.split()[0])
+		except:
+			entry.append('')
+
+		try:
+			entry.append(name.split()[1])
+		except:
+			entry.append('');
+
+		entry_id = db.get_id(entry)
+		print(entry_id)
+		self.k=ecw.EditContactWindow(self.master, name, entry_id)
 		self.master.wait_window(self.k.top)
 
 

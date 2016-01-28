@@ -102,21 +102,22 @@ def db_commit():
 	cfg.DB.commit()
 
 
-def edit_entry(id, entry):
+def edit_entry(entry_id, entry):
 	"""Updates entry in database.
 
 	Keyword arguments:
 	entry -- A list object
 	id -- Corresponding ID number for an entry.
 	"""
-
+	print(entry)
+	print()
 	entry_update = '''UPDATE Contacts SET First = ?, Last = ?, Street1 = ?,
 			Street2 = ?, City = ?, State = ?, Zip = ?, Home = ?, Mobile = ?, 
 			Email = ?, Birthday = ?, Notes = ? WHERE rowid = ? '''
 
 	cfg.C.execute(entry_update, [entry[0], entry[1], entry[2], entry[3], 
 		entry[4], entry[5], entry[6], entry[7], entry[8], entry[9], entry[10],
-		entry[11], '{}'.format(get_id(entry))])
+		entry[11], '{}'.format(entry_id)])
 
 
 def query_entrylist(sort):

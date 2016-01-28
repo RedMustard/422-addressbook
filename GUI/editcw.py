@@ -12,8 +12,10 @@ import db
 class ConfirmationWindow(object):
 	def yes(self):
 		field_list = self.field_list
+		# print(field_list)
 		# gui.mainWindow(self.master).delete_contact(name)
-		ab.edit_contact(field_list)
+		ab.edit_contact(self.entry_id, field_list)
+
 		db.db_commit()
 		self.top.destroy()
 
@@ -22,10 +24,11 @@ class ConfirmationWindow(object):
 		self.top.destroy()
 
 	
-	def __init__(self,master,field_list):
+	def __init__(self,master,field_list, entry_id):
 		top=self.top=Tk.Toplevel(master)
 		self.master = master
 		self.field_list = field_list
+		self.entry_id = entry_id
 		top.title('Confirm')
 
 		self.label = Tk.Label(top, text = 'Are you sure you want to edit this contact?')

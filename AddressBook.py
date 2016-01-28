@@ -84,10 +84,11 @@ def remove_contact(contact):
 	db.delete_entry(db.get_id(entry))
 
 
-def edit_contact(contact):
+def edit_contact(entry_id, contact):
 	"""Edits a contact"""
-
-	db.edit_entry(db.get_id((contact[0] + contact[1])), contact)
+	print("AB.contact: {}".format(contact))
+	print("AB.Entry id: {}".format(entry_id)) #db.get_id((contact[0] + contact[1]))
+	db.edit_entry(entry_id, contact)
 
 
 def new_book():
