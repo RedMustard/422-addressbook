@@ -9,8 +9,9 @@ Input Validation
 
 ADVANCED FEATURES (DEFINITELY NOT NEEDED):
 Importing/Exporting
-Search -- Functionality in the backend is done (PROBABLY IMPLEMENT THIS)
 
 
 KNOWN BUGS:
 - Can't select entry without a first name
+- New button merges the NABW into main window
+- When closing the address book, the program continues to run

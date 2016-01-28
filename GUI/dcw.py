@@ -17,7 +17,7 @@ class ConfirmationWindow(object):
 		self.top.destroy()
 
 	def no(self):
-		gui.mainWindow(self.master).contact_list()
+		gui.mainWindow(self.master).search_query() ## FIXME
 		self.top.destroy()
 
 	

@@ -42,7 +42,7 @@ class EditContactWindow(object):
 			field_list[i] = field_vars[i]
 
 		self.popup_confirmation(field_list, self.entry_id)
-		gui.mainWindow(self.master).contact_list(gui.mainWindow(self.master).sort.get())
+		gui.mainWindow(self.master).search_query(gui.mainWindow(self.master).sort.get())
 		self.close_window()
 
 

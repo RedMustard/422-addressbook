@@ -26,27 +26,29 @@ class mainWindow(object):
 		self.top.destroy()
 
 
-	def contact_list(self, sort):
-		"""Retrieves list of contacts"""
-		self.book_list.delete(0, Tk.END)
+	# def contact_list(self, sort):
+	# 	"""Retrieves list of contacts"""
+	# 	self.book_list.delete(0, Tk.END)
 
-		for contact in ab.get_contacts_list(self.sort.get()):
-			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
+	# 	for contact in ab.get_contacts_list(self.sort.get()):
+	# 		self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 			
+	def search_call(self):
+		""" """
+		self.search_query(self.sort.get())
 
-	def search_query(self):
+
+	def search_query(self, sort):
 		""" """
 		self.book_list.delete(0, Tk.END)
 
-		print(self.search_bar.get())
-		print(self.sort.get())
-		for contact in ab.search(self.search_bar.get(), self.sort.get()):
+		for contact in ab.search(self.search_bar.get(), sort):
 			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 
 	def delete_contact(self, name):
 		"""Deletes selected contact"""
 		ab.remove_contact(name)
-		self.contact_list(self.sort.get())
+		self.search_query(self.sort.get())
 
 
 	def field_return(self):
@@ -225,7 +227,7 @@ class mainWindow(object):
 		self.sort.set('Last Name')
 
 		#sort option menu #self.sort.get() to get the value of user's option
-		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip', command = self.contact_list)# , 'option' #to add another option
+		self.sort_option_menu = Tk.OptionMenu(master, self.sort, 'Last Name', 'Zip', command = self.search_query)# , 'option' #to add another option
 		self.sort_option_menu.grid(row = 1, column = 0, sticky = Tk.W, padx = 10)
 
 		#scroll bar and box list of contacts
@@ -239,13 +241,14 @@ class mainWindow(object):
 		#search bar
 		self.search_bar = Tk.Entry(master)
 		self.search_bar.grid(row = 0, column = 4, padx = 10 )
-		self.search_bar.insert(0, 'Search')
+		self.search_bar.insert(0, '')
 
-		self.search_return = Tk.Button(master, text = 'Search', command = self.search_query)
+		self.search_return = Tk.Button(master, text = 'Search', command = self.search_call)
 		self.search_return.grid(row = 0, column = 5, padx = 5)
 
 		# Initialize list of contacts
-		self.contact_list(self.sort.get())
+		# self.contact_list(self.sort.get())
+		self.search_query(self.sort.get())
 
 		#add contact button
 		self.add_button = Tk.Button(master, text = 'Add', command = self.popupAdd)
