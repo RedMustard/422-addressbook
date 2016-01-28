@@ -31,7 +31,7 @@ class AddContactWindow(object):
 	def field_return(self):
 		"""Grabs form data and creates"""
 
-		field_list = ['','','','','','','','','','','','']
+		field_list = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 		
 		first = self.first_name.get()
 		last = self.last_name.get()

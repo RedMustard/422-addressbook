@@ -7,6 +7,5 @@ Open/Save address books
 
 
 KNOWN BUGS:
-- Can't select entry without a first name (Backend)
 - New button merges the NABW into main window (GUI)
 - When closing the address book, the program continues to run (GUI)

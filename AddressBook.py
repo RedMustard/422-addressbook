@@ -30,21 +30,12 @@ def get_contact(contact):
 	entry = []
 
 	try:
-		try:
-			if contact.split()[1]:
-				entry.append(contact.split()[0])
-				print("some	")
-		except:
-			print('thing')
-			entry.append('')
-
+		if contact.split()[1]:
+			entry.append(contact.split()[0])
+			entry.append(contact.split()[1])
 	except:
 		entry.append('')
-
-	try:
-		entry.append(contact.split()[1])
-	except:
-		entry.append('');
+		entry.append(contact.split()[0])
 
 	for row in db.get_entry(db.get_id(entry)):
 		return row
@@ -89,10 +80,6 @@ def remove_contact(contact):
 	
 	db.delete_entry(db.get_id(entry))
 
-def exit():
-    root.destroy()
-    # etc.
-
 
 def edit_contact(entry_id, contact):
 	"""Edits a contact"""
@@ -116,7 +103,6 @@ def open_book():
 
 if __name__ == "__main__":
     root = Tk.Tk()
-    root.protocol("WM_DELETE_WINDOW", exit)
     new.New_AddBookWindow(root)
     root.mainloop()
 

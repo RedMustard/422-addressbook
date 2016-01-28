@@ -126,9 +126,9 @@ class mainWindow(object):
 		w = event.widget
 		name = str(self.book_list.get(self.book_list.curselection()))
 		self.clearTextEntries()
-		# print(name)
+		
 		name_entry = ab.get_contact(name)
-		# print(name_entry)
+		
 		self.first_name.insert(0,str(name_entry[0]))
 		self.last_name.insert(0,str(name_entry[1]))
 		self.address1.insert(0,str(name_entry[2]))
