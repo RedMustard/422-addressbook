@@ -95,6 +95,20 @@ class mainWindow(object):
 	def quit(self):
 		sys.exit()
 
+	def noEdit(self):
+		self.first_name.configure(state='readonly')
+		self.last_name.configure(state='readonly')
+		self.address1.configure(state='readonly')
+		self.address2.configure(state='readonly')
+		self.city.configure(state='readonly')
+		self.state.configure(state='readonly')
+		self.zip.configure(state='readonly')
+		self.home.configure(state='readonly')
+		self.mobile.configure(state='readonly')
+		self.email.configure(state='readonly')
+		self.birthday.configure(state='readonly')
+		self.notes.configure(state='readonly')
+
 
 	def onSelect(self,event):
 		"""Grabs name from contact list upon user click."""
@@ -135,6 +149,20 @@ class mainWindow(object):
 
 	def clearTextEntries(self):
 		"""Clears any value in text fields. For use when user selects different contact"""
+		self.first_name.configure(state='normal')
+		self.last_name.configure(state='normal')
+		self.address1.configure(state='normal')
+		self.address2.configure(state='normal')
+		self.city.configure(state='normal')
+		self.state.configure(state='normal')
+		self.zip.configure(state='normal')
+		self.home.configure(state='normal')
+		self.mobile.configure(state='normal')
+		self.email.configure(state='normal')
+		self.birthday.configure(state='normal')
+		self.notes.configure(state='normal')
+
+
 		self.first_name.delete(0,Tk.END)
 		self.last_name.delete(0,Tk.END)
 		self.address1.delete(0,Tk.END)
@@ -302,7 +330,8 @@ class mainWindow(object):
 		#input for notes on contact
 		self.notes = Tk.Entry(master)
 		self.notes.grid(row = 13, column = 4)
-
+		
+		self.noEdit()
 
 if __name__ == "__main__":
 	master = Tk.Tk()
