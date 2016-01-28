@@ -89,6 +89,10 @@ def remove_contact(contact):
 	
 	db.delete_entry(db.get_id(entry))
 
+def exit():
+    root.destroy()
+    # etc.
+
 
 def edit_contact(entry_id, contact):
 	"""Edits a contact"""
@@ -112,6 +116,7 @@ def open_book():
 
 if __name__ == "__main__":
     root = Tk.Tk()
+    root.protocol("WM_DELETE_WINDOW", exit)
     new.New_AddBookWindow(root)
     root.mainloop()
 

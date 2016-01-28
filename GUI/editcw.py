@@ -10,6 +10,8 @@ import gui
 import db
 
 class ConfirmationWindow(object):
+	
+	
 	def yes(self):
 		field_list = self.field_list
 		# print(field_list)

@@ -10,10 +10,14 @@ class New_AddBookWindow(object):
 		db.db_init(book_name) ## <----- PASS USER INPUT   book_name
 		root = Tk.Tk()
 		self.master.withdraw()
+		root.protocol("WM_DELETE_WINDOW", exit)
 		gui.mainWindow(root)
 		root.mainloop()
 		sys.exit()
 
+
+	def exit():
+		root.destroy()
 
 	def close_window(self):
 		self.master.destroy()
