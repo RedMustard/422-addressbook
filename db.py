@@ -136,16 +136,23 @@ def query_entrylist(sort):
 	return cfg.C
 
 
-def search_entry(str):
+def search_entry(str, sort):
 	"""Searches the database for an entry.
 
 	Keyword arguments:
 	str -- A string containing search term
 	"""
-	search = '''SELECT * FROM Contacts WHERE (First || Last || Street1 || 
-			Street2 || City || State || Zip || Home || Mobile || Email || 
-			Birthday || Notes) LIKE '%' || ? || '%' '''
-	cfg.C.execute(search, [str]) 
+	if sort == 'Last Name':
+		search_last = '''SELECT * FROM Contacts WHERE (First || Last || Street1 || 
+				Street2 || City || State || Zip || Home || Mobile || Email || 
+				Birthday || Notes) LIKE '%' || ? || '%' ORDER BY Last ASC, First ASC'''
+		cfg.C.execute(search_last, [str]) 
+
+	elif sort == 'Zip':
+		search_zip = '''SELECT * FROM Contacts WHERE (First || Last || Street1 || 
+				Street2 || City || State || Zip || Home || Mobile || Email || 
+				Birthday || Notes) LIKE '%' || ? || '%' ORDER BY Zip ASC, Last ASC'''
+		cfg.C.execute(search_zip, [str]) 
 
 	return cfg.C
 

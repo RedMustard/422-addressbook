@@ -23,6 +23,7 @@ def get_contacts_list(sort):
 
 	return contacts
 
+
 def get_contact(contact):
 	"""
 	"""
@@ -45,7 +46,6 @@ def get_contact(contact):
 
 	# print(entry)
 
-	
 
 def create_contact(contact):
 	"""Eventually add First, Last, Street1, ...."""
@@ -63,6 +63,7 @@ def create_contact(contact):
 	entry.append('')
 	entry.append('')
 	return entry
+
 
 def add_contact(contact):
 	"""Adds a contact to the database"""
@@ -90,12 +91,16 @@ def edit_contact(entry_id, contact):
 	db.edit_entry(entry_id, contact)
 
 
+def search(search_string, sort):
+	"""Searches the database and returns the results"""
+	return db.search_entry(search_string, sort)
+
+
 def new_book():
 	"""Creates a new address book"""
-	## WINDOW POPS UP HERE ##
-
 	book_name = input("Enter the name of your new address book: ")
-	return (db.db_init(book_name)) ## <----- PASS USER INPUT   book_name
+	return (db.db_init(book_name))
+
 
 def open_book():
 	"""Opens an exisitng address book"""

@@ -29,10 +29,19 @@ class mainWindow(object):
 	def contact_list(self, sort):
 		"""Retrieves list of contacts"""
 		self.book_list.delete(0, Tk.END)
-		
+
 		for contact in ab.get_contacts_list(self.sort.get()):
 			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 			
+
+	def search_query(self):
+		""" """
+		self.book_list.delete(0, Tk.END)
+
+		print(self.search_bar.get())
+		print(self.sort.get())
+		for contact in ab.search(self.search_bar.get(), self.sort.get()):
+			self.book_list.insert(Tk.END, contact[0] + " " + contact[1])
 
 	def delete_contact(self, name):
 		"""Deletes selected contact"""
@@ -209,7 +218,7 @@ class mainWindow(object):
 
 		#open address book button
 		self.open_button = Tk.Button(master, text="Open", command = self.open )
-		self.open_button.grid(row = 0, column = 0, padx= 10)
+		self.open_button.grid(row = 0, column = 0, sticky = Tk.E, padx= 0)
 
 		#sort option menu default option
 		self.sort = Tk.StringVar(master)
@@ -231,6 +240,9 @@ class mainWindow(object):
 		self.search_bar = Tk.Entry(master)
 		self.search_bar.grid(row = 0, column = 4, padx = 10 )
 		self.search_bar.insert(0, 'Search')
+
+		self.search_return = Tk.Button(master, text = 'Search', command = self.search_query)
+		self.search_return.grid(row = 0, column = 5, padx = 5)
 
 		# Initialize list of contacts
 		self.contact_list(self.sort.get())
