@@ -15,7 +15,6 @@ class ConfirmationWindow(object):
 		# print(field_list)
 		# gui.mainWindow(self.master).delete_contact(name)
 		ab.edit_contact(self.entry_id, field_list)
-
 		db.db_commit()
 		self.top.destroy()
 

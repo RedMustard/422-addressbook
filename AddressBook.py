@@ -10,6 +10,7 @@ sys.path.insert(0, 'GUI')
 import tkinter as Tk
 import gui
 import db
+import new
 
 
 def get_contacts_list(sort):
@@ -94,6 +95,7 @@ def edit_contact(entry_id, contact):
 def new_book():
 	"""Creates a new address book"""
 	## WINDOW POPS UP HERE ##
+
 	book_name = input("Enter the name of your new address book: ")
 	return (db.db_init(book_name)) ## <----- PASS USER INPUT   book_name
 
@@ -102,10 +104,10 @@ def open_book():
 
 
 if __name__ == "__main__":
-    new_book()
     root = Tk.Tk()
-    gui.mainWindow(root)
+    new.New_AddBookWindow(root)
     root.mainloop()
+
 
     # gui.root.mainloop()
 	
